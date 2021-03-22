@@ -3237,12 +3237,12 @@ ul.choose-skin li.active div::after {
 .input-group-prepend .input-group-text,
 .input-group-append .input-group-text {
     background: transparent;
-    border-color: #f7f7f7
+    border-color: #d4d4d4
 }
 
 .input-group-prepend .btn-outline-secondary,
 .input-group-append .btn-outline-secondary {
-    border-color: #f7f7f7
+    border-color: #d4d4d4
 }
 
 .custom-select {

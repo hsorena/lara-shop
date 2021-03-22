@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::prefix('admin')->namespace('Admin')->group(function () {
 
     Route::view('/' , 'admin.master');
+    Route::resource('/categories' , 'CategoryController');
 
 });
 

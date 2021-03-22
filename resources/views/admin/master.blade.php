@@ -11,18 +11,19 @@
 
     <link rel="icon" href="favicon.png" type="image/x-icon">
     <!-- VENDOR CSS -->
-    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/vendor/animate-css/vivify.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/animate-css/vivify.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-select/dist/css/bootstrap-select.css') }}">
 
-    <link rel="stylesheet" href="../assets/vendor/c3/c3.min.css"/>
-    <link rel="stylesheet" href="../assets/vendor/chartist/css/chartist.css">
-    <link rel="stylesheet" href="../assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
-    <link rel="stylesheet" href="../assets/vendor/toastr/toastr.min.css">
-    <link rel="stylesheet" href="../assets/vendor/jvectormap/jquery-jvectormap-2.0.3.css"/>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/c3/c3.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/chartist/css/chartist.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/jvectormap/jquery-jvectormap-2.0.3.css') }}"/>
 
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="assets/css/site.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/site.min.css') }}">
 
 </head>
 <body class="theme-blush">
@@ -30,7 +31,7 @@
 <!-- Page Loader -->
 <div class="page-loader-wrapper">
     <div class="loader">
-        <div class="m-t-30"><img src="../assets/images/icon.svg" width="40" height="40" alt="Brego"></div>
+        <div class="m-t-30"><img src="{{ asset('assets/images/icon.svg') }}" width="40" height="40" alt="Brego"></div>
         <p>لطفا صبر کنید...</p>
     </div>
 </div>
@@ -56,7 +57,7 @@
 
             <div class="navbar-left">
                 <div class="navbar-btn">
-                    <a href="index.html"><img src="../assets/images/icon.svg" alt="Brego Logo" class="img-fluid logo"></a>
+                    <a href="#"><img src="{{asset('assets/images/icon.svg')}}" alt="Logo" class="img-fluid logo"></a>
                     <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
                 </div>
                 <form id="navbar-search" class="navbar-form search-form">
@@ -170,7 +171,7 @@
                             </ul>
                         </li>
                         <li><a href="javascript:void(0);" class="right_toggle icon-menu" title="Right Menu"><i class="icon-bubbles"></i></a></li>
-                        <li><a href="page-login.html" class="icon-menu"><i class="icon-power"></i></a></li>
+                        <li><a href="#" class="icon-menu"><i class="icon-power"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -483,37 +484,38 @@
 
     <div id="left-sidebar" class="sidebar">
         <div class="navbar-brand">
-            <a href="index.html"><img src="../assets/images/icon.svg" alt="Brego Logo" class="img-fluid logo"><span>برگو</span></a>
+            <a href="#"><img src="{{asset('assets/images/icon.svg')}}" alt="Logo" class="img-fluid logo"><span>پنل مدیریت</span></a>
             <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"><i class="lnr lnr-menu fa fa-chevron-circle-left"></i></button>
         </div>
         <div class="sidebar-scroll">
-            <div class="user-account">
-                <div class="user_div">
-                    <img src="https://via.placeholder.com/140x140" class="user-photo" alt="User Profile Picture">
-                </div>
-                <div class="dropdown">
-                    <span>خوش آمديد،</span>
-                    <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>آرش خادملو</strong></a>
-                    <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
-                        <li><a href="page-profile.html"><i class="icon-user"></i>پروفایل من</a></li>
-                        <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>پیام</a></li>
-                        <li><a href="javascript:void(0);"><i class="icon-settings"></i>تنظیمات</a></li>
-                        <li class="divider"></li>
-                        <li><a href="page-login.html"><i class="icon-power"></i>خروج</a></li>
-                    </ul>
-                </div>
-                <button class="btn btn-sm btn-block btn-primary btn-round mt-3" title=""><i class="icon-plus mr-1"></i> ایجاد جدید</button>
-            </div>
+{{--            <div class="user-account">--}}
+{{--                <div class="user_div">--}}
+{{--                    <img src="https://via.placeholder.com/140x140" class="user-photo" alt="User Profile Picture">--}}
+{{--                </div>--}}
+{{--                <div class="dropdown">--}}
+{{--                    <span>خوش آمديد،</span>--}}
+{{--                    <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>آرش خادملو</strong></a>--}}
+{{--                    <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">--}}
+{{--                        <li><a href="page-profile.html"><i class="icon-user"></i>پروفایل من</a></li>--}}
+{{--                        <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>پیام</a></li>--}}
+{{--                        <li><a href="javascript:void(0);"><i class="icon-settings"></i>تنظیمات</a></li>--}}
+{{--                        <li class="divider"></li>--}}
+{{--                        <li><a href="page-login.html"><i class="icon-power"></i>خروج</a></li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--                <button class="btn btn-sm btn-block btn-primary btn-round mt-3" title=""><i class="icon-plus mr-1"></i> ایجاد جدید</button>--}}
+{{--            </div>--}}
             <nav id="left-sidebar-nav" class="sidebar-nav">
                 <ul id="main-menu" class="metismenu">
-                    <li class="header">اصلی</li>
+                    <li class="header">محصولات</li>
                     <li class="active">
-                        <a href="#Dashboard" class="has-arrow"><i class="icon-speedometer"></i><span>داشبورد</span></a>
+                    <li>
+                        <a href="#" class="has-arrow"><i class="fa fa-product-hunt"></i><span>دسته بندی محصولات</span></a>
                         <ul>
-                            <li class="active"><a href="index.html">نسخه روشن</a></li>
+                            <li><a href="{{ route('categories.index') }}"><i class="fa fa-list"></i>دسته بندی ها</a></li>
+                            <li><a href="{{ route('categories.create') }}"><i class="fa fa-plus"></i>دسته بندی جدید</a></li>
                         </ul>
                     </li>
-                    <li class="header">برنامه</li>
                 </ul>
             </nav>
         </div>
@@ -522,10 +524,10 @@
     <div id="main-content">
         <div class="block-header">
             <div class="row clearfix">
-                <div class="col-md-6 col-sm-12">
-                    <h1>داشبورد</h1>
-                </div>
-                <div class="col-md-6 col-sm-12 text-right">
+{{--                <div class="col-md-6 col-sm-12">--}}
+{{--                    <h1>داشبورد</h1>--}}
+{{--                </div>--}}
+                <div class="col-md-12 col-sm-12 text-right">
                     <div class="inlineblock vivify swoopInTop delay-900 mr-4">بازدیدکنندگان <span id="mini-bar-chart1" class="mini-bar-chart"></span></div>
                     <div class="inlineblock vivify swoopInTop delay-950 mr-4">بازدیدها <span id="mini-bar-chart2" class="mini-bar-chart"></span></div>
                     <div class="inlineblock vivify swoopInTop delay-1000">چت ها <span id="mini-bar-chart3" class="mini-bar-chart"></span></div>
@@ -536,299 +538,11 @@
         <div class="container-fluid">
 
             <div class="row clearfix">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-12 ">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="icon-in-bg bg-indigo text-white rounded-circle"><i class="fa fa-briefcase"></i></div>
-                                <div class="ml-4">
-                                    <span>درآمد کلی</span>
-                                    <h4 class="mb-0 font-weight-medium">7805 تومان</h4>
-                                </div>
-                            </div>
+                            @yield('content')
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="icon-in-bg bg-azura text-white rounded-circle"><i class="fa fa-credit-card"></i></div>
-                                <div class="ml-4">
-                                    <span>هزینه جدید</span>
-                                    <h4 class="mb-0 font-weight-medium">3651 تومان</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="icon-in-bg bg-orange text-white rounded-circle"><i class="fa fa-users"></i></div>
-                                <div class="ml-4">
-                                    <span>بازدید روزانه</span>
-                                    <h4 class="mb-0 font-weight-medium">5,805</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="icon-in-bg bg-pink text-white rounded-circle"><i class="fa fa-life-ring"></i></div>
-                                <div class="ml-4">
-                                    <span>نرخ بیکاری</span>
-                                    <h4 class="mb-0 font-weight-medium">13651 تومان</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row clearfix">
-                <div class="col-lg-8 col-md-12 col-sm-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>بازدید کنندگان سایت</h2>
-                            <ul class="header-dropdown dropdown">
-
-                                <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0);">اقدام</a></li>
-                                        <li><a href="javascript:void(0);">دیگر اقدام</a></li>
-                                        <li><a href="javascript:void(0);">یک چیز دیگر</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <div id="world-map-markers" class="jvector-map" style="height: 245px"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div id="slider3" class="carousel vert slide" data-ride="carousel" data-interval="1700">
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                                <div class="card-value float-right text-muted"><i class="wi wi-fog"></i></div>
-                                                <h3 class="mb-1">12°C</h3>
-                                                <div>لندن</div>
-                                            </div>
-                                            <div class="carousel-item">
-                                                <div class="card-value float-right text-muted"><i class="wi wi-day-cloudy"></i></div>
-                                                <h3 class="mb-1">18°C</h3>
-                                                <div>نیو یورک</div>
-                                            </div>
-                                            <div class="carousel-item">
-                                                <div class="card-value float-right text-muted"><i class="wi wi-sunrise"></i></div>
-                                                <h3 class="mb-1">37°C</h3>
-                                                <div>دهلی نو</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div id="slider2" class="carousel vert slide" data-ride="carousel" data-interval="2000">
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                                <div class="card-value float-right text-muted"><i class="icon-drawer"></i></div>
-                                                <h3 class="mb-1">302</h3>
-                                                <div>صندوق ورودی</div>
-                                            </div>
-                                            <div class="carousel-item">
-                                                <div class="card-value float-right text-muted"><i class="icon-star"></i></div>
-                                                <h3 class="mb-1">21</h3>
-                                                <div>ستاره دار</div>
-                                            </div>
-                                            <div class="carousel-item">
-                                                <div class="card-value float-right text-muted"><i class="icon-notebook"></i></div>
-                                                <h3 class="mb-1">2</h3>
-                                                <div>پیش نویس</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-value float-right text-muted"><i class="icon-bubbles"></i></div>
-                                    <h3 class="mb-1">102</h3>
-                                    <div>پیام ها</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12 col-sm-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>دنبال کنندگان جدید</h2>
-                        </div>
-                        <div class="body">
-                            <ul class="right_chat w_followers list-unstyled mb-0">
-                                <li class="online">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <img class="media-object " src="https://via.placeholder.com/140x140" alt="">
-                                            <div class="media-body">
-                                                <span class="name">@MelissaMcCoy</span>
-                                                <span class="message">طراح، بلاگر</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="online">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <img class="media-object " src="https://via.placeholder.com/140x140" alt="">
-                                            <div class="media-body">
-                                                <span class="name">@Joge Lucky</span>
-                                                <span class="message">توسعه دهنده جاوا</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="offline">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <img class="media-object " src="https://via.placeholder.com/140x140" alt="">
-                                            <div class="media-body">
-                                                <span class="name">@JuanMartinez</span>
-                                                <span class="message">مدیر عامل، پارادایم شیفت</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="offline">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <img class="media-object " src="https://via.placeholder.com/140x140" alt="">
-                                            <div class="media-body">
-                                                <span class="name">@آرش خادملو</span>
-                                                <span class="message">مدیر هنری، فیلم برش</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="online">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <img class="media-object " src="https://via.placeholder.com/140x140" alt="">
-                                            <div class="media-body">
-                                                <span class="name">@LouisHenry</span>
-                                                <span class="message">نویسنده، مجله ویرایشگر</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="offline">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <img class="media-object " src="https://via.placeholder.com/45x45" alt="">
-                                            <div class="media-body">
-                                                <span class="name">@آرش خادملو</span>
-                                                <span class="message">مدیر هنری، فیلم برش</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row clearfix">
-                <div class="col-12">
-                    <div class="table-responsive">
-                        <table class="table header-border table-hover table-custom spacing5">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>محصول</th>
-                                <th>محبوبیت</th>
-                                <th>تخفیف</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th class="w60">1</th>
-                                <td>محدوده دکور خانه</td>
-                                <td>
-                                    <div class="progress progress-xxs">
-                                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-primary">70%</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>ملزومات حمام</td>
-                                <td>
-                                    <div class="progress progress-xxs">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-success">70%</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>دیزنی شاهزاده خانم پینک 18 "کیسه مدرسه</td>
-                                <td>
-                                    <div class="progress progress-xxs">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-dark">70%</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>4</th>
-                                <td>آیفون ایکس اس</td>
-                                <td>
-                                    <div class="progress progress-xxs">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-danger">70%</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>5</th>
-                                <td>ساعت هوشمند اپل</td>
-                                <td>
-                                    <div class="progress progress-xxs">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-warning">70%</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -839,13 +553,14 @@
 </div>
 
 <!-- Javascript -->
-<script src="assets/bundles/libscripts.bundle.js"></script>
-<script src="assets/bundles/vendorscripts.bundle.js"></script>
+<script src="{{ asset('assets/bundles/libscripts.bundle.js') }}"></script>
+<script src="{{ asset('assets/bundles/vendorscripts.bundle.js') }}"></script>
 
-<script src="assets/bundles/jvectormap.bundle.js"></script>
-<script src="../assets/vendor/toastr/toastr.js"></script>
+<script src="{{ asset('assets/bundles/jvectormap.bundle.js') }}"></script>
+<script src="{{ asset('../assets/vendor/toastr/toastr.js') }}"></script>
 
-<script src="assets/bundles/mainscripts.bundle.js"></script>
-<script src="assets/js/index.js"></script>
+<script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
+<script src="{{ asset('assets/js/index.js') }}"></script>
+<script src="{{ asset('assets/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 </body>
 </html>
