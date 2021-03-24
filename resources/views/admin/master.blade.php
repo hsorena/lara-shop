@@ -488,32 +488,23 @@
             <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"><i class="lnr lnr-menu fa fa-chevron-circle-left"></i></button>
         </div>
         <div class="sidebar-scroll">
-{{--            <div class="user-account">--}}
-{{--                <div class="user_div">--}}
-{{--                    <img src="https://via.placeholder.com/140x140" class="user-photo" alt="User Profile Picture">--}}
-{{--                </div>--}}
-{{--                <div class="dropdown">--}}
-{{--                    <span>خوش آمديد،</span>--}}
-{{--                    <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>آرش خادملو</strong></a>--}}
-{{--                    <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">--}}
-{{--                        <li><a href="page-profile.html"><i class="icon-user"></i>پروفایل من</a></li>--}}
-{{--                        <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>پیام</a></li>--}}
-{{--                        <li><a href="javascript:void(0);"><i class="icon-settings"></i>تنظیمات</a></li>--}}
-{{--                        <li class="divider"></li>--}}
-{{--                        <li><a href="page-login.html"><i class="icon-power"></i>خروج</a></li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--                <button class="btn btn-sm btn-block btn-primary btn-round mt-3" title=""><i class="icon-plus mr-1"></i> ایجاد جدید</button>--}}
-{{--            </div>--}}
             <nav id="left-sidebar-nav" class="sidebar-nav">
                 <ul id="main-menu" class="metismenu">
                     <li class="header">محصولات</li>
                     <li class="active">
                     <li>
-                        <a href="#" class="has-arrow"><i class="fa fa-product-hunt"></i><span>دسته بندی محصولات</span></a>
+                        <a href="#" class="has-arrow"><i class="fa fa-code-fork"></i><span>دسته بندی محصولات</span></a>
                         <ul>
                             <li><a href="{{ route('categories.index') }}"><i class="fa fa-list"></i>دسته بندی ها</a></li>
                             <li><a href="{{ route('categories.create') }}"><i class="fa fa-plus"></i>دسته بندی جدید</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" class="has-arrow"><i class="fa fa-list-alt"></i><span>ویژگی های محصولات</span></a>
+                        <ul>
+                            <li><a href="{{ route('attributes.index') }}"><i class="fa fa-list"></i>لیست ویژگی ها</a></li>
+                            <li><a href="{{ route('attributes.create') }}"><i class="fa fa-plus"></i>ویژگی جدید</a></li>
                         </ul>
                     </li>
                 </ul>
