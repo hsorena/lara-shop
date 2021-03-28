@@ -505,6 +505,8 @@
                         <ul>
                             <li><a href="{{ route('attributes.index') }}"><i class="fa fa-list"></i>لیست ویژگی ها</a></li>
                             <li><a href="{{ route('attributes.create') }}"><i class="fa fa-plus"></i>ویژگی جدید</a></li>
+                            <li><a href="{{ route('attributes-values.create') }}"><i class="fa fa-plus"></i>مقدار جدید</a></li>
+                            <li><a href="{{ route('attributes-values.index') }}"><i class="fa fa-list"></i>لیست مقادیر</a></li>
                         </ul>
                     </li>
                 </ul>

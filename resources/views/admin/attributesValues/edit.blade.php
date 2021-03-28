@@ -4,45 +4,30 @@
         <div class="col-md-9 ">
             <div class="card border border-light">
                 <div class="card-header">
-                    <span class="card-title">ویرایش ویژگی {{ $attribute->name }}</span>
+                    <span class="card-title">ویرایش مقدار ویژگی {{ $attributeValue->title }}</span>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('attributes.update' , $attribute) }}" refer method="post">
+                    <form action="{{ route('attributes-values.update' ,['id' => $attributeValue->id ]) }}" refer method="post">
                         @csrf
                         <input type="hidden" name="_method" value="PATCH">
                         <div class="input-group input-group-sm mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">عنوان ویژگی :</span>
+                                <span class="input-group-text" id="inputGroup-sizing-sm">عنوان مقدار :</span>
                             </div>
-                            <input name="title" value="{{ $attribute->title }}" type="text" class="form-control"
+                            <input name="title" value="{{ $attributeValue->title }}" type="text" class="form-control"
                                    aria-label="عنوان ویژگی :" aria-describedby="inputGroup-sizing-sm"
                                    placeholder="عنوان ویژگی را وارد کنید...">
                         </div>
 
-                        <div class="input-group input-group-sm mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">مقدار ویژگی :</span>
-                            </div>
-                            <select class="selectpicker">
-                                @foreach($attributes as $attr)
-                                    @foreach($attr->attributeValues as $attrVal)
-                                        <option @if($attr->id == $attrVal->id) selected @endif>{{ $attrVal->title }}</option>
-                                    @endforeach
-                                @endforeach
-                            </select>
-                        </div>
-
 
                         <div class="input-group input-group-sm mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">نوع ویژگی :</span>
+                                <span class="input-group-text" id="inputGroup-sizing-sm"> ویژگی :</span>
                             </div>
-                            <select name="type" class="selectpicker">
-                                <option value="select" @if($attribute->type == 'select') selected @endif >لیست تکی
-                                </option>
-                                <option value="multiple" @if($attribute->type == 'multiple') selected @endif>لیست
-                                    چندتایی
-                                </option>
+                            <select name="attribute_id" class="selectpicker">
+                                @foreach($attributes as $attribute)
+                                    <option value="{{ $attribute->id }}" @if($attributeValue->attribute_id == $attribute->id ) selected @endif >{{$attribute->title}}</option>
+                                @endforeach()
                             </select>
                         </div>
 

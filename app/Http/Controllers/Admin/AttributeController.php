@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin\Attribute;
+use App\Models\Admin\AttributeValue;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -65,7 +66,8 @@ class AttributeController extends Controller
      */
     public function edit(Attribute $attribute)
     {
-        return view('admin.attributes.edit' , ['attribute' => $attribute]);
+        $attributes = Attribute::all();
+        return view('admin.attributes.edit' , ['attribute' => $attribute , 'attributes' => $attributes]);
     }
 
     /**
