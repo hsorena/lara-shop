@@ -24,6 +24,7 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/site.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
 
 </head>
 <body class="theme-blush">
@@ -501,12 +502,20 @@
                     </li>
 
                     <li>
-                        <a href="#" class="has-arrow"><i class="fa fa-list-alt"></i><span>ویژگی های محصولات</span></a>
+                        <a href="#" class="has-arrow"><i class="fa fa-bars"></i><span>ویژگی های محصولات</span></a>
                         <ul>
                             <li><a href="{{ route('attributes.index') }}"><i class="fa fa-list"></i>لیست ویژگی ها</a></li>
                             <li><a href="{{ route('attributes.create') }}"><i class="fa fa-plus"></i>ویژگی جدید</a></li>
                             <li><a href="{{ route('attributes-values.create') }}"><i class="fa fa-plus"></i>مقدار جدید</a></li>
                             <li><a href="{{ route('attributes-values.index') }}"><i class="fa fa-list"></i>لیست مقادیر</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" class="has-arrow"><i class="fa fa-bookmark"></i><span>برند ها</span></a>
+                        <ul>
+                            <li><a href="{{ route('brands.index') }}"><i class="fa fa-list"></i>لیست برند ها</a></li>
+                            <li><a href="{{ route('brands.create') }}"><i class="fa fa-plus"></i>برند جدید</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -555,5 +564,7 @@
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/index.js') }}"></script>
 <script src="{{ asset('assets/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+<script src="{{ asset('js/all.js') }}"></script>
+@yield('scripts')
 </body>
 </html>

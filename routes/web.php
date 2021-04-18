@@ -24,6 +24,9 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::resource('/categories' , 'CategoryController');
     Route::resource('/attributes' , 'AttributeController');
     Route::resource('/attributes-values' , 'AttributeValueController');
+    Route::resource('/brands' , 'BrandController');
+    Route::resource('/photos' , 'PhotoController');
+    Route::post('/photos/upload' , 'PhotoController@upload')->name('photos.upload');
 
 });
 
