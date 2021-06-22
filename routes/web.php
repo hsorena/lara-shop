@@ -26,6 +26,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::resource('/attributes-values' , 'AttributeValueController');
     Route::resource('/brands' , 'BrandController');
     Route::resource('/photos' , 'PhotoController');
+    Route::resource('/products' , 'ProductController');
     Route::post('/photos/upload' , 'PhotoController@upload')->name('photos.upload');
 
 });

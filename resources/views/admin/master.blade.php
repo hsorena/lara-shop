@@ -493,6 +493,15 @@
                 <ul id="main-menu" class="metismenu">
                     <li class="header">محصولات</li>
                     <li class="active">
+
+                    <li>
+                        <a href="#" class="has-arrow"><i class="fa fa-code-fork"></i><span>محصولات</span></a>
+                        <ul>
+                            <li><a href="{{ route('categories.create') }}"><i class="fa fa-plus"></i>محصول جدید</a></li>
+                            <li><a href="{{ route('categories.index') }}"><i class="fa fa-list"></i>لیست محصولات</a></li>
+                        </ul>
+                    </li>
+
                     <li>
                         <a href="#" class="has-arrow"><i class="fa fa-code-fork"></i><span>دسته بندی محصولات</span></a>
                         <ul>

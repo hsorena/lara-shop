@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Admin\Photo;
+use App\Models\Admin\Product;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -41,5 +42,10 @@ class User extends Authenticatable
     public function photos()
     {
         return $this->hasMany(Photo::class,'user_id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }
