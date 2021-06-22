@@ -7,6 +7,7 @@ use App\Models\Admin\Photo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
@@ -39,10 +40,23 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->hasFile('photo'))
+        {
+            $uplodedPhoto = $request->file('photo');
+            $photoName = time() . $uplodedPhoto->getClientOriginalName();
+            $originalPhotoName = $uplodedPhoto->getClientOriginalName();
+            Storage::disk('local')->putFileAs('public/photos/' , $uplodedPhoto , $photoName);
+
+            $photo = new Photo();
+            $photo->original_name = $originalPhotoName;
+            $photo->path = $photoName;
+            $photo->user_id = 1;
+            $photo->save();
+        }
         $brand = new Brand();
         $brand->title = $request->title;
         $brand->description = $request->description;
-        $brand->photo_id = $request->photo_id;
+        $brand->photo_id = $photo->id;
         $brand->save();
         Session::flash('brand_created', 'برند مورد نظر با موفقیت ایجاد شد');
         return redirect(route('brands.index'));
@@ -99,7 +113,9 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        $attribute->delete();
+        Storage::delete('public/photos/' . $brand->photo->path);
+        $brand->photo->delete();
+        $brand->delete();
         Session::flash('brand_deleted', 'برند مورد نظر با موفقیت حذف شد');
         return redirect(route('brands.index'));
     }

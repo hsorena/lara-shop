@@ -38,7 +38,19 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
+        $uploadedFile = $request->file('file');
+        $fileName = time() . $uploadedFile->getClientOriginalName();
+        $originalFileName =  $uploadedFile->getClientOriginalName();
 
+        Storage::disk('local')->putFileAs('public/photos/' , $uploadedFile , $fileName);
+
+        $photo = new Photo();
+        $photo->original_name = $originalFileName;
+        $photo->path = $fileName;
+        $photo->user_id = 1;
+        $photo->save();
+
+        return response()->json(['photo_id' => $photo->id]);
     }
 
     public function upload(Request $request)

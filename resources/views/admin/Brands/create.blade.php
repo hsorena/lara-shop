@@ -8,7 +8,7 @@
                     <span class="card-title">ایجاد برند جدید</span>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('brands.store') }}" refer method="post">
+                    <form action="{{ route('brands.store') }}" refer method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group input-group-sm mb-3">
                             <div class="input-group-prepend">
@@ -30,11 +30,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">تصویر :</span>
                             </div>
+                            <input name="photo" type="file" class="form-control form-control-file">
                         </div>
-                       <div class="form-group">
-                           <input type="hidden" name="photo_id" id="photo-brand">
-                           <div id="photo" class="dropzone"></div>
-                       </div>
+
 
                         <div class="btn-group-toggle float-right">
                             <button type="submit" class="btn btn-outline-success" title="save">
