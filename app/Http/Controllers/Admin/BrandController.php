@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class BrandController extends Controller
 {
@@ -42,7 +43,7 @@ class BrandController extends Controller
     {
         if ($request->hasFile('photo'))
         {
-            $uplodedPhoto = $request->file('photo');
+            $uplodedPhoto = $request->photo;
             $photoName = time() . $uplodedPhoto->getClientOriginalName();
             $originalPhotoName = $uplodedPhoto->getClientOriginalName();
             Storage::disk('local')->putFileAs('public/photos/' , $uplodedPhoto , $photoName);
@@ -50,7 +51,7 @@ class BrandController extends Controller
             $photo = new Photo();
             $photo->original_name = $originalPhotoName;
             $photo->path = $photoName;
-            $photo->user_id = 1;
+            $photo->user_id = Auth::user()->id;
             $photo->save();
         }
         $brand = new Brand();

@@ -4,7 +4,7 @@
         <div class="col-md-9 ">
             <div class="card border border-light">
                 <div class="card-header">
-                    <span class="card-title">ویرایش برند {{ $brand->title }}</span>
+                    <span class="card-title">ویرایش دسته ی {{ $brand->name }}</span>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('brands.update' , $brand) }}" refer method="post">

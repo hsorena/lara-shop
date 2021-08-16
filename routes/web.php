@@ -11,11 +11,13 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
@@ -30,7 +32,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::post('/photos/upload' , 'PhotoController@upload')->name('photos.upload');
 
 });
-
 
 Auth::routes();
 
