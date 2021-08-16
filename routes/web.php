@@ -17,11 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::prefix('api')->namespace('Admin')->group(function () {
+    Route::get('/categories' , 'CategoryController@apiIndex');
+});
 
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
-
     Route::view('/' , 'admin.master');
     Route::resource('/categories' , 'CategoryController');
     Route::get('/categories/{id}/settings' , 'CategoryController@indexSetting')->name('categories.indexSetting');
@@ -32,7 +33,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::resource('/photos' , 'PhotoController');
     Route::resource('/products' , 'ProductController');
     Route::post('/photos/upload' , 'PhotoController@upload')->name('photos.upload');
-
 });
 
 Auth::routes();

@@ -9,6 +9,7 @@
                     <span class="card-title">لیست محصولات</span>
                 </div>
 
+
                 <div class="card-body">
                     @if(Session::has('brand_created'))
                         <div class="alert alert-success">{{Session('brand_created')}}</div>

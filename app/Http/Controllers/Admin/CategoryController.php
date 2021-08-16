@@ -123,4 +123,13 @@ class CategoryController extends Controller
         $category->save();
         return redirect()->route('categories.index');
     }
+
+    public function apiIndex()
+    {
+        $categories = Category::with('sub_category')->where('parent_id' , null)->get();
+        $response = [
+            'categories' => $categories
+        ];
+        return response()->json($response , 200);
+    }
 }
