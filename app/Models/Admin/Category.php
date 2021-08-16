@@ -28,6 +28,7 @@ class Category extends Model
 
     public function attributes()
     {
-        return $this->hasMany(Attribute::class , 'attribute_id');
+        return $this->belongsToMany(Attribute::class , 'attribute_category' , 'category_id' , 'attribute_id')
+            ->withTimestamps();
     }
 }

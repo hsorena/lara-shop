@@ -24,6 +24,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
     Route::view('/' , 'admin.master');
     Route::resource('/categories' , 'CategoryController');
+    Route::get('/categories/{id}/settings' , 'CategoryController@indexSetting')->name('categories.indexSetting');
+    Route::post('/categories/{id}/settings' , 'CategoryController@saveSetting')->name('categories.saveSetting');
     Route::resource('/attributes' , 'AttributeController');
     Route::resource('/attributes-values' , 'AttributeValueController');
     Route::resource('/brands' , 'BrandController');

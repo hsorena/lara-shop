@@ -16,6 +16,9 @@
                 <button type="submit" class="btn btn-outline-danger mb-2" title="حذف"><span
                         class="sr-only"></span> <i class="fa fa-trash"></i></button>
             </form>
+            <a href="{{ route('categories.indexSetting' , ['id' => $subCategory->id])}}" type="button"
+               class="btn btn-outline-primary mb-2" title="ویرایش"><span
+                    class="sr-only"></span> <i class="fa fa-cog"></i></a>
         </td>
     </tr>
     @if(count($subCategory->sub_category) > 0)

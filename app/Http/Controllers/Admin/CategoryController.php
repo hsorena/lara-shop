@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin\Attribute;
 use App\Models\Admin\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -106,5 +107,20 @@ class CategoryController extends Controller
             Session::flash('error_category' , 'این دسته شامل زیر دسته میباشد نمیتوانید حدف کنید');
             return redirect(route('categories.index'));
         }
+    }
+
+    public function indexSetting($id)
+    {
+        $category = Category::findOrFail($id);
+        $attributes = Attribute::all();
+        return view('admin.categories.setting' , compact(['category' , 'attributes']));
+    }
+
+    public function saveSetting(Request $request , $id)
+    {
+        $category = Category::findOrFail($id);
+        $category->attributes()->sync($request->attributesGroup);
+        $category->save();
+        return redirect()->route('categories.index');
     }
 }
