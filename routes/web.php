@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 Route::prefix('api')->namespace('Admin')->group(function () {
     Route::get('/categories' , 'CategoryController@apiIndex');
+    Route::post('/categories/attribute' , 'CategoryController@apiAttributeIndex');
 });
 
 

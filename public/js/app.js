@@ -1931,12 +1931,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AttributeComponent",
   props: ['brands'],
   data: function data() {
     return {
-      categories: []
+      categories: [],
+      categories_selected: [],
+      flag: false,
+      attributes: []
     };
   },
   mounted: function mounted() {
@@ -1961,6 +1976,22 @@ __webpack_require__.r(__webpack_exports__);
           this.getAllChildren(current.sub_category, level + 1);
         }
       }
+    },
+    onChange: function onChange(event) {
+      var _this2 = this;
+
+      var categories = {
+        categories_id: this.categories_selected
+      };
+      this.flag = false;
+      axios.post('/api/categories/attribute', this.categories_selected).then(function (res) {
+        _this2.attributes = res.data.attributes;
+        console.log(_this2.attributes);
+        _this2.flag = true;
+      })["catch"](function (err) {
+        console.log(err);
+        _this2.flag = false;
+      });
     }
   }
 });
@@ -37635,8 +37666,36 @@ var render = function() {
       _c(
         "select",
         {
-          staticClass: "selectpicker",
-          attrs: { name: "category_id[]", multiple: "" }
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.categories_selected,
+              expression: "categories_selected"
+            }
+          ],
+          staticClass: "custom-select",
+          attrs: { multiple: "" },
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.categories_selected = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              },
+              function($event) {
+                return _vm.onChange($event)
+              }
+            ]
+          }
         },
         _vm._l(_vm.categories, function(category) {
           return _c("option", { domProps: { value: category.id } }, [
@@ -37647,14 +37706,56 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
+    _vm.flag
+      ? _c(
+          "div",
+          _vm._l(_vm.attributes, function(attribute) {
+            return _c(
+              "div",
+              { staticClass: "input-group input-group-sm mb-3" },
+              [
+                _c("div", { staticClass: "input-group-prepend" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "input-group-text",
+                      attrs: { id: "brands" }
+                    },
+                    [_vm._v("ویژگی " + _vm._s(attribute.title) + ":")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "custom-select",
+                    attrs: { name: "attribute" }
+                  },
+                  _vm._l(attribute.attribute_values, function(attribute_value) {
+                    return _c(
+                      "option",
+                      { domProps: { value: attribute_value.id } },
+                      [_vm._v(_vm._s(attribute_value.title))]
+                    )
+                  }),
+                  0
+                )
+              ]
+            )
+          }),
+          0
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", { staticClass: "input-group input-group-sm mb-3" }, [
       _vm._m(1),
       _vm._v(" "),
       _c(
         "select",
         {
-          staticClass: "selectpicker",
-          attrs: { name: "brand_id[]", multiple: "" }
+          staticClass: "custom-select",
+          staticStyle: { "font-family": "'Segoe UI'" },
+          attrs: { name: "brand_id" }
         },
         _vm._l(_vm.brands, function(brand) {
           return _c("option", { domProps: { value: brand.id } }, [

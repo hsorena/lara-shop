@@ -132,4 +132,18 @@ class CategoryController extends Controller
         ];
         return response()->json($response , 200);
     }
+
+    public function apiAttributeIndex(Request $request)
+    {
+        $categories = $request->all();
+        $attributes = Attribute::with('attributeValues' , 'categories')
+            ->whereHas('categories' , function ($q) use ($categories){
+                $q->whereIn('categories.id' , $categories);
+            })->get();
+
+        $response = [
+            'attributes' => $attributes
+        ];
+        return response()->json($response , 200);
+    }
 }
