@@ -25,8 +25,8 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/site.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
-{{--    <script src="{{asset('js/app.js')}}"></script>--}}
+    <link rel="stylesheet" href="{{ asset('assets/dropzone/dropzone.css') }}">
+
 
 </head>
 <body class="theme-blush">
@@ -640,7 +640,7 @@
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/index.js') }}"></script>
 <script src="{{ asset('assets/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+<script src="{{asset('js/app.js')}}"></script>
 @yield('scripts')
-{{--<script src="{{ asset('js/all.js') }}"></script>--}}
 </body>
 </html>

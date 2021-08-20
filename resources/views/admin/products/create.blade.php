@@ -67,6 +67,15 @@
 
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">گالری تصاویر :</span>
+                                </div>
+                                <div id="photo" class="dropzone form-control">
+                                    <input name="photos_id[]" type="hidden" id="product-photos">
+                                </div>
+                            </div>
+
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-sm">متای توضیحات :</span>
                                 </div>
                                 <input name="meta_desc" type="text" class="form-control" aria-label="متای توضیحات :" aria-describedby="inputGroup-sizing-sm">
@@ -88,7 +97,7 @@
 
 
                             <div class="btn-group-toggle float-right">
-                                <button type="submit" class="btn btn-outline-success" title="save">
+                                <button type="submit" onclick="addPhotosIds()" class="btn btn-outline-success" title="save">
                                     <span class="sr-only"></span>
                                     <i class="fa fa-save"></i>
                                     دخیره
@@ -111,19 +120,24 @@
 @endsection()
 
 @section('scripts')
-    <script src="{{ asset('js/app.js') }}"></script>
-{{--    <script>--}}
-{{--        var drop = new Dropzone('#photo' , {--}}
-{{--            url : "{{ route('photos.upload') }}",--}}
-{{--            addRemoveLinks : true,--}}
-{{--            maxFiles : 1,--}}
-{{--            sending : function (file , xhr , formData){--}}
-{{--                formData.append("_token" , "{{ csrf_token() }}")--}}
-{{--            },--}}
-{{--            success : function (file , response){--}}
-{{--                document.getElementById('photo-brand').value = response.photo_id--}}
-{{--            }--}}
-{{--        });--}}
-{{--    </script>--}}
+    <script type="text/javascript" src="{{ asset('assets/dropzone/dropzone.js') }}"></script>
+    <script>
+        var photoGallery = []
+        Dropzone.autoDiscover = false;
+        var drop = new Dropzone('#photo' , {
+            url : "{{ route('photos.upload') }}",
+            addRemoveLinks : true,
+            sending : function (file , xhr , formData){
+                formData.append("_token" , "{{ csrf_token() }}")
+            },
+            success : function (file , response){
+                photoGallery.push(response.photo_id)
+            }
+        });
+
+        addPhotosIds = function (){
+            document.getElementById('product-photos').value = photoGallery
+        }
+    </script>
 
 @endsection

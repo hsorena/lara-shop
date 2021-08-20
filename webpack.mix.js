@@ -13,10 +13,10 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js');
 
-mix.scripts([
-    'resources/assets/dropzone/dropzone.js',
-], 'public/js/all.js');
-
-mix.styles([
-    'resources/assets/dropzone/dropzone.css',
-], 'public/css/all.css');
+// mix.scripts([
+//     'resources/assets/dropzone/dropzone.js',
+// ], 'public/js/all.js');
+//
+// mix.styles([
+//     'resources/assets/dropzone/dropzone.css',
+// ], 'public/css/all.css');
