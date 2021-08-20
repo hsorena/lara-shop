@@ -2,28 +2,32 @@
     <div>
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-sm">دسته محصول :</span>
+                <span id="inputGroup-sizing-sm" class="input-group-text">دسته محصول :</span>
             </div>
-            <select class="custom-select" multiple v-model="categories_selected" @change="onChange($event)">
-                <option v-for="category in categories" :value="category.id"  >{{ category.name }}</option>
+            <select v-model="categories_selected" name="categories[]" class="custom-select" multiple @change="onChange($event)">
+                <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
             </select>
         </div>
 
         <div v-if="flag">
-            <div class="input-group input-group-sm mb-3" v-for="attribute in attributes">
+            <div v-for="attribute in attributes" class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="brands">ویژگی {{ attribute.title }}:</span>
+                    <span id="brands" class="input-group-text">ویژگی {{ attribute.title }}:</span>
                 </div>
-                <select class="custom-select" name="attribute">
-                    <option v-for="attribute_value in attribute.attribute_values" :value="attribute_value.id">{{ attribute_value.title }}</option>
+                <select class="custom-select" @change="addAttributes($event)">
+                    <option value="null">ویژگی را انتخاب کنید...</option>
+                    <option v-for="attribute_value in attribute.attribute_values" :value="attribute_value.id">
+                        {{ attribute_value.title }}
+                    </option>
                 </select>
             </div>
+            <input id="attributes" type="hidden" name="attributes[]">
         </div>
 
 
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="brands">برند :</span>
+                <span id="brands" class="input-group-text">برند :</span>
             </div>
             <select class="custom-select" name="brand_id" style="font-family:'Segoe UI'">
                 <option v-for="brand in brands" :value="brand.id">{{ brand.title }}</option>
@@ -36,47 +40,47 @@
 <script>
 export default {
     name: "AttributeComponent",
-    props:['brands'],
+    props: ['brands'],
     data() {
         return {
             categories: [],
-            categories_selected:[],
-            flag:false,
-            attributes:[]
+            categories_selected: [],
+            flag: false,
+            attributes: [],
+            selected_attributes : []
         }
     },
     mounted() {
         axios.get('/api/categories').then(
-                res => {
-                    this.getAllChildren(res.data.categories , 0)
+            res => {
+                this.getAllChildren(res.data.categories, 0)
             }).catch(
-                err =>{
-                    console.log(err)
+            err => {
+                console.log(err)
             })
     },
-    methods:{
-    getAllChildren(currentValue , level){
-        for (let i = 0 ; i < currentValue.length ; i++){
-            let current = currentValue[i]
-            this.categories.push({
-                id: current.id,
-                name: Array(level+1).join(' -- ') + ' ' + current.name
-            })
-            if (current.sub_category && current.sub_category.length > 0){
-                this.getAllChildren(current.sub_category , level + 1)
+    methods: {
+        getAllChildren(currentValue, level) {
+            for (let i = 0; i < currentValue.length; i++) {
+                let current = currentValue[i]
+                this.categories.push({
+                    id: current.id,
+                    name: Array(level + 1).join(' -- ') + ' ' + current.name
+                })
+                if (current.sub_category && current.sub_category.length > 0) {
+                    this.getAllChildren(current.sub_category, level + 1)
+                }
             }
-        }
 
         },
-        onChange(event){
+        onChange(event) {
             let categories = {
-                categories_id : this.categories_selected
+                categories_id: this.categories_selected
             }
             this.flag = false
-            axios.post('/api/categories/attribute' , this.categories_selected).then(
+            axios.post('/api/categories/attribute', this.categories_selected).then(
                 res => {
                     this.attributes = res.data.attributes
-                    console.log(this.attributes)
                     this.flag = true
                 }
             ).catch(
@@ -85,6 +89,12 @@ export default {
                     this.flag = false
                 }
             )
+        },
+        addAttributes(event){
+            if (!this.selected_attributes.includes(event.target.value)){
+                this.selected_attributes.push(event.target.value)
+                document.getElementById('attributes').value = this.selected_attributes
+            }
         }
     }
 }

@@ -1943,6 +1943,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AttributeComponent",
   props: ['brands'],
@@ -1951,7 +1955,8 @@ __webpack_require__.r(__webpack_exports__);
       categories: [],
       categories_selected: [],
       flag: false,
-      attributes: []
+      attributes: [],
+      selected_attributes: []
     };
   },
   mounted: function mounted() {
@@ -1986,12 +1991,17 @@ __webpack_require__.r(__webpack_exports__);
       this.flag = false;
       axios.post('/api/categories/attribute', this.categories_selected).then(function (res) {
         _this2.attributes = res.data.attributes;
-        console.log(_this2.attributes);
         _this2.flag = true;
       })["catch"](function (err) {
         console.log(err);
         _this2.flag = false;
       });
+    },
+    addAttributes: function addAttributes(event) {
+      if (!this.selected_attributes.includes(event.target.value)) {
+        this.selected_attributes.push(event.target.value);
+        document.getElementById('attributes').value = this.selected_attributes;
+      }
     }
   }
 });
@@ -37675,7 +37685,7 @@ var render = function() {
             }
           ],
           staticClass: "custom-select",
-          attrs: { multiple: "" },
+          attrs: { name: "categories[]", multiple: "" },
           on: {
             change: [
               function($event) {
@@ -37709,41 +37719,65 @@ var render = function() {
     _vm.flag
       ? _c(
           "div",
-          _vm._l(_vm.attributes, function(attribute) {
-            return _c(
-              "div",
-              { staticClass: "input-group input-group-sm mb-3" },
-              [
-                _c("div", { staticClass: "input-group-prepend" }, [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "input-group-text",
-                      attrs: { id: "brands" }
-                    },
-                    [_vm._v("ویژگی " + _vm._s(attribute.title) + ":")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    staticClass: "custom-select",
-                    attrs: { name: "attribute" }
-                  },
-                  _vm._l(attribute.attribute_values, function(attribute_value) {
-                    return _c(
-                      "option",
-                      { domProps: { value: attribute_value.id } },
-                      [_vm._v(_vm._s(attribute_value.title))]
+          [
+            _vm._l(_vm.attributes, function(attribute) {
+              return _c(
+                "div",
+                { staticClass: "input-group input-group-sm mb-3" },
+                [
+                  _c("div", { staticClass: "input-group-prepend" }, [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "input-group-text",
+                        attrs: { id: "brands" }
+                      },
+                      [_vm._v("ویژگی " + _vm._s(attribute.title) + ":")]
                     )
-                  }),
-                  0
-                )
-              ]
-            )
-          }),
-          0
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      staticClass: "custom-select",
+                      on: {
+                        change: function($event) {
+                          return _vm.addAttributes($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "null" } }, [
+                        _vm._v("ویژگی را انتخاب کنید...")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(attribute.attribute_values, function(
+                        attribute_value
+                      ) {
+                        return _c(
+                          "option",
+                          { domProps: { value: attribute_value.id } },
+                          [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(attribute_value.title) +
+                                "\n                "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _c("input", {
+              attrs: { id: "attributes", type: "hidden", name: "attributes[]" }
+            })
+          ],
+          2
         )
       : _vm._e(),
     _vm._v(" "),
