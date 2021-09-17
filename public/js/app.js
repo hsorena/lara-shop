@@ -1947,6 +1947,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AttributeComponent",
   props: ['brands'],
@@ -1956,7 +1957,8 @@ __webpack_require__.r(__webpack_exports__);
       categories_selected: [],
       flag: false,
       attributes: [],
-      selected_attributes: []
+      selected_attributes: [],
+      computedAttributes: []
     };
   },
   mounted: function mounted() {
@@ -1997,10 +1999,23 @@ __webpack_require__.r(__webpack_exports__);
         _this2.flag = false;
       });
     },
-    addAttributes: function addAttributes(event) {
-      if (!this.selected_attributes.includes(event.target.value)) {
-        this.selected_attributes.push(event.target.value);
-        document.getElementById('attributes').value = this.selected_attributes;
+    addAttributes: function addAttributes(event, index) {
+      for (var i = 0; i < this.selected_attributes.length; i++) {
+        var current = this.selected_attributes[i];
+
+        if (current.index == index) {
+          this.selected_attributes.splice(i, 1);
+        }
+      }
+
+      this.selected_attributes.push({
+        'index': index,
+        'value': event.target.value
+      });
+      this.computedAttributes = [];
+
+      for (var _i = 0; _i < this.selected_attributes.length; _i++) {
+        this.computedAttributes.push(this.selected_attributes[_i].value);
       }
     }
   }
@@ -37685,7 +37700,7 @@ var render = function() {
             }
           ],
           staticClass: "custom-select",
-          attrs: { name: "categories[]", multiple: "" },
+          attrs: { multiple: "", name: "categories[]" },
           on: {
             change: [
               function($event) {
@@ -37720,7 +37735,7 @@ var render = function() {
       ? _c(
           "div",
           [
-            _vm._l(_vm.attributes, function(attribute) {
+            _vm._l(_vm.attributes, function(attribute, index) {
               return _c(
                 "div",
                 { staticClass: "input-group input-group-sm mb-3" },
@@ -37742,14 +37757,12 @@ var render = function() {
                       staticClass: "custom-select",
                       on: {
                         change: function($event) {
-                          return _vm.addAttributes($event)
+                          return _vm.addAttributes($event, index)
                         }
                       }
                     },
                     [
-                      _c("option", { attrs: { value: "null" } }, [
-                        _vm._v("ویژگی را انتخاب کنید...")
-                      ]),
+                      _c("option", [_vm._v("ویژگی را انتخاب کنید...")]),
                       _vm._v(" "),
                       _vm._l(attribute.attribute_values, function(
                         attribute_value
@@ -37774,7 +37787,8 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("input", {
-              attrs: { id: "attributes", type: "hidden", name: "attributes[]" }
+              attrs: { name: "attributes[]", type: "hidden" },
+              domProps: { value: _vm.computedAttributes }
             })
           ],
           2

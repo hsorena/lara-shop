@@ -24,7 +24,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">توضیحات محصول :</span>
                                 </div>
-                                <textarea name="description" class="form-control" aria-label="با ناحیه متن" style="margin-top: 0px; margin-bottom: 0px; height: 80px;" ></textarea>
+                                <textarea name="description" placeholder="توضیحات محصول را وارد کنید..." class="form-control" aria-label="با ناحیه متن" style="margin-top: 0px; margin-bottom: 0px; height: 80px;" ></textarea>
                             </div>
 
                             <div class="input-group input-group-sm mb-3">

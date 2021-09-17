@@ -21,7 +21,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">دسته والد :</span>
                             </div>
-                                <select class="selectpicker" name="parent_id" placeholder="دسته والد را انتخاب کنید...">
+                                <select class="custom-select" multiple name="parent_id" placeholder="دسته والد را انتخاب کنید...">
                                     <option selected></option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }} </option>

@@ -146,4 +146,6 @@ class CategoryController extends Controller
         ];
         return response()->json($response , 200);
     }
+
+
 }

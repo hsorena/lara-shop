@@ -18,4 +18,9 @@ class Photo extends Model
     {
         return $this->belongsTo(Brand::class , 'photo_id');
     }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }

@@ -639,8 +639,8 @@
 
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/index.js') }}"></script>
-<script src="{{ asset('assets/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <script src="{{asset('js/app.js')}}"></script>
+<script src="{{ asset('assets/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 @yield('scripts')
 </body>
 </html>

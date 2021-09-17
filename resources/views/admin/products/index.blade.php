@@ -11,8 +11,8 @@
 
 
                 <div class="card-body">
-                    @if(Session::has('brand_created'))
-                        <div class="alert alert-success">{{Session('brand_created')}}</div>
+                    @if(Session::has('product_created'))
+                        <div class="alert alert-success">{{Session('product_created')}}</div>
                     @endif
                     @if(Session::has('brand_updated'))
                         <div class="alert alert-info">{{Session('brand_updated')}}</div>
@@ -38,15 +38,15 @@
                                     <th class="w60">{{ $product->id }}</th>
                                     <th class="w60">{{ $product->sku }}</th>
                                     <td>{{ $product->title }}</td>
-                                    <td>{{ $product->description }}</td>
-                                    <td><img width="75px" src="{{ asset('/storage/photos/' . $brand->photo->path) }}">
+                                    <td>{{print(substr($product->description , 0 , 50)) . '...'   }}</td>
+                                    <td><img width="75px" src="{{ asset('/storage/photos/' . $product->photos[0]->path) }}">
                                     </td>
                                     <td>
-                                        <a href="{{ route('products.edit' , ['id' => $brand->id])}}" type="button"
+                                        <a href="{{ route('products.edit' , ['id' => $product->id])}}" type="button"
                                            class="btn btn-outline-warning mb-2" title="ویرایش"><span
                                                 class="sr-only"></span> <i class="fa fa-edit"></i></a>
                                         <form class="inlineblock" method="post"
-                                              action="{{ route('brands.destroy' , ['id' => $brand->id])}}">
+                                              action="{{ route('products.destroy' , ['id' => $product->id])}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-outline-danger mb-2" title="حذف"><span

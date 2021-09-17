@@ -4,24 +4,25 @@
             <div class="input-group-prepend">
                 <span id="inputGroup-sizing-sm" class="input-group-text">دسته محصول :</span>
             </div>
-            <select v-model="categories_selected" name="categories[]" class="custom-select" multiple @change="onChange($event)">
+            <select v-model="categories_selected" class="custom-select" multiple name="categories[]"
+                    @change="onChange($event)">
                 <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
             </select>
         </div>
 
         <div v-if="flag">
-            <div v-for="attribute in attributes" class="input-group input-group-sm mb-3">
+            <div v-for="(attribute , index) in attributes" class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
                     <span id="brands" class="input-group-text">ویژگی {{ attribute.title }}:</span>
                 </div>
-                <select class="custom-select" @change="addAttributes($event)">
-                    <option value="null">ویژگی را انتخاب کنید...</option>
+                <select class="custom-select" @change="addAttributes($event , index)">
+                    <option>ویژگی را انتخاب کنید...</option>
                     <option v-for="attribute_value in attribute.attribute_values" :value="attribute_value.id">
                         {{ attribute_value.title }}
                     </option>
                 </select>
             </div>
-            <input id="attributes" type="hidden" name="attributes[]">
+            <input :value="computedAttributes" name="attributes[]" type="hidden">
         </div>
 
 
@@ -47,7 +48,8 @@ export default {
             categories_selected: [],
             flag: false,
             attributes: [],
-            selected_attributes : []
+            selected_attributes: [],
+            computedAttributes: []
         }
     },
     mounted() {
@@ -90,10 +92,23 @@ export default {
                 }
             )
         },
-        addAttributes(event){
-            if (!this.selected_attributes.includes(event.target.value)){
-                this.selected_attributes.push(event.target.value)
-                document.getElementById('attributes').value = this.selected_attributes
+        addAttributes(event, index) {
+
+            for (let i = 0; i < this.selected_attributes.length; i++) {
+
+                let current = this.selected_attributes[i];
+                if (current.index == index) {
+                    this.selected_attributes.splice(i, 1)
+                }
+            }
+            this.selected_attributes.push({
+                'index': index,
+                'value': event.target.value
+            })
+            this.computedAttributes = []
+            for (let i = 0 ; i < this.selected_attributes.length; i++)
+            {
+                this.computedAttributes.push(this.selected_attributes[i].value)
             }
         }
     }
