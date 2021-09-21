@@ -5,7 +5,7 @@
                 <span id="inputGroup-sizing-sm" class="input-group-text">دسته محصول :</span>
             </div>
             <select v-model="categories_selected" class="custom-select" multiple name="categories[]"
-                    @change="onChange($event)">
+                    @change="onChange($event , null)">
                 <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
             </select>
         </div>
@@ -17,9 +17,10 @@
                 </div>
                 <select class="custom-select" @change="addAttributes($event , index)">
                     <option>ویژگی را انتخاب کنید...</option>
-                    <option v-for="attribute_value in attribute.attribute_values" :value="attribute_value.id">
-                        {{ attribute_value.title }}
-                    </option>
+                    <option v-if="!product" v-for="attribute_value in attribute.attribute_values" :value="attribute_value.id">{{ attribute_value.title }}</option>
+                    <option v-if="product" v-for="attribute_value in attribute.attribute_values" :value="attribute_value.id"
+                        :selected="product.attribute_values[index].id == attribute_value.id">
+                        {{ attribute_value.title }}</option>
                 </select>
             </div>
             <input :value="computedAttributes" name="attributes[]" type="hidden">
@@ -31,7 +32,8 @@
                 <span id="brands" class="input-group-text">برند :</span>
             </div>
             <select class="custom-select" name="brand_id" style="font-family:'Segoe UI'">
-                <option v-for="brand in brands" :value="brand.id">{{ brand.title }}</option>
+                <option v-if="!product" v-for="brand in brands" :value="brand.id">{{ brand.title }}</option>
+                <option v-if="product" v-for="brand in brands" :value="brand.id" :selected="product.brand.id == brand.id">{{ brand.title }}</option>
             </select>
         </div>
     </div>
@@ -41,7 +43,7 @@
 <script>
 export default {
     name: "AttributeComponent",
-    props: ['brands'],
+    props: ['brands' , 'product'],
     data() {
         return {
             categories: [],
@@ -60,6 +62,22 @@ export default {
             err => {
                 console.log(err)
             })
+        if (this.product){
+            for (let i = 0 ; i < this.product.categories.length ; i++)
+            {
+                this.categories_selected.push(this.product.categories[i].id)
+            }
+            for (let i = 0 ; i < this.product.attribute_values.length ; i++)
+            {
+                this.selected_attributes.push({
+                    'index' : i ,
+                    'value' : this.product.attribute_values[i].id
+                })
+                this.computedAttributes.push(this.product.attribute_values[i].id)
+            }
+            let load = 'ok'
+            this.onChange(null  , load);
+        }
     },
     methods: {
         getAllChildren(currentValue, level) {
@@ -75,13 +93,18 @@ export default {
             }
 
         },
-        onChange(event) {
+        onChange(event , load) {
             let categories = {
                 categories_id: this.categories_selected
             }
             this.flag = false
             axios.post('/api/categories/attribute', this.categories_selected).then(
                 res => {
+                    if(this.product && load != 'ok')
+                    {
+                        this.computedAttributes = []
+                        this.selected_attributes = []
+                    }
                     this.attributes = res.data.attributes
                     this.flag = true
                 }

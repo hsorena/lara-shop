@@ -1948,9 +1948,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AttributeComponent",
-  props: ['brands'],
+  props: ['brands', 'product'],
   data: function data() {
     return {
       categories: [],
@@ -1969,6 +1971,23 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (err) {
       console.log(err);
     });
+
+    if (this.product) {
+      for (var i = 0; i < this.product.categories.length; i++) {
+        this.categories_selected.push(this.product.categories[i].id);
+      }
+
+      for (var _i = 0; _i < this.product.attribute_values.length; _i++) {
+        this.selected_attributes.push({
+          'index': _i,
+          'value': this.product.attribute_values[_i].id
+        });
+        this.computedAttributes.push(this.product.attribute_values[_i].id);
+      }
+
+      var load = 'ok';
+      this.onChange(null, load);
+    }
   },
   methods: {
     getAllChildren: function getAllChildren(currentValue, level) {
@@ -1984,7 +2003,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     },
-    onChange: function onChange(event) {
+    onChange: function onChange(event, load) {
       var _this2 = this;
 
       var categories = {
@@ -1992,6 +2011,11 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.flag = false;
       axios.post('/api/categories/attribute', this.categories_selected).then(function (res) {
+        if (_this2.product && load != 'ok') {
+          _this2.computedAttributes = [];
+          _this2.selected_attributes = [];
+        }
+
         _this2.attributes = res.data.attributes;
         _this2.flag = true;
       })["catch"](function (err) {
@@ -2014,8 +2038,8 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.computedAttributes = [];
 
-      for (var _i = 0; _i < this.selected_attributes.length; _i++) {
-        this.computedAttributes.push(this.selected_attributes[_i].value);
+      for (var _i2 = 0; _i2 < this.selected_attributes.length; _i2++) {
+        this.computedAttributes.push(this.selected_attributes[_i2].value);
       }
     }
   }
@@ -37717,7 +37741,7 @@ var render = function() {
                   : $$selectedVal[0]
               },
               function($event) {
-                return _vm.onChange($event)
+                return _vm.onChange($event, null)
               }
             ]
           }
@@ -37767,17 +37791,37 @@ var render = function() {
                       _vm._l(attribute.attribute_values, function(
                         attribute_value
                       ) {
-                        return _c(
-                          "option",
-                          { domProps: { value: attribute_value.id } },
-                          [
-                            _vm._v(
-                              "\n                    " +
-                                _vm._s(attribute_value.title) +
-                                "\n                "
+                        return !_vm.product
+                          ? _c(
+                              "option",
+                              { domProps: { value: attribute_value.id } },
+                              [_vm._v(_vm._s(attribute_value.title))]
                             )
-                          ]
-                        )
+                          : _vm._e()
+                      }),
+                      _vm._v(" "),
+                      _vm._l(attribute.attribute_values, function(
+                        attribute_value
+                      ) {
+                        return _vm.product
+                          ? _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: attribute_value.id,
+                                  selected:
+                                    _vm.product.attribute_values[index].id ==
+                                    attribute_value.id
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(attribute_value.title)
+                                )
+                              ]
+                            )
+                          : _vm._e()
                       })
                     ],
                     2
@@ -37805,12 +37849,31 @@ var render = function() {
           staticStyle: { "font-family": "'Segoe UI'" },
           attrs: { name: "brand_id" }
         },
-        _vm._l(_vm.brands, function(brand) {
-          return _c("option", { domProps: { value: brand.id } }, [
-            _vm._v(_vm._s(brand.title))
-          ])
-        }),
-        0
+        [
+          _vm._l(_vm.brands, function(brand) {
+            return !_vm.product
+              ? _c("option", { domProps: { value: brand.id } }, [
+                  _vm._v(_vm._s(brand.title))
+                ])
+              : _vm._e()
+          }),
+          _vm._v(" "),
+          _vm._l(_vm.brands, function(brand) {
+            return _vm.product
+              ? _c(
+                  "option",
+                  {
+                    domProps: {
+                      value: brand.id,
+                      selected: _vm.product.brand.id == brand.id
+                    }
+                  },
+                  [_vm._v(_vm._s(brand.title))]
+                )
+              : _vm._e()
+          })
+        ],
+        2
       )
     ])
   ])

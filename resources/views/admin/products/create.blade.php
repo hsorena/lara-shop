@@ -40,7 +40,7 @@
                                     <span class="input-group-text" id="inputGroup-sizing-sm">قیمت :</span>
                                 </div>
                                 <input name="price" type="number" class="form-control" aria-label="قیمت :"
-                                       aria-describedby="inputGroup-sizing-sm" placeholder="قیمت محصول را وارد کنید...">
+                                       aria-describedby="inputGroup-sizing-sm"  placeholder="قیمت محصول را وارد کنید...">
                             </div>
 
                             <div class="input-group input-group-sm mb-3">
@@ -48,7 +48,7 @@
                                     <span class="input-group-text" id="inputGroup-sizing-sm">قیمت ویژه :</span>
                                 </div>
                                 <input style="-webkit-appearance: none;" name="discount_price" type="number" min="0.00" max="100000000" class="form-control" aria-label="قیمت ویژه :"
-                                       aria-describedby="inputGroup-sizing-sm" placeholder="قیمت ویژه محصول را وارد کنید...">
+                                       aria-describedby="inputGroup-sizing-sm"  placeholder="قیمت ویژه محصول را وارد کنید...">
                             </div>
 
                             <div class="input-group input-group-sm mb-3">
@@ -59,7 +59,7 @@
                                     <label class="fancy-radio custom-color-green"><input name="status" value="1" type="radio"><span><i></i>فعال</span></label><br>
                                 </div>
                                 <div>
-                                    <label class="fancy-radio custom-color-red"><input name="status" value="0" type="radio"><span><i></i>غیر فعال</span></label>
+                                    <label class="fancy-radio custom-color-red"><input name="status"  value="0" type="radio"><span><i></i>غیر فعال</span></label>
                                 </div>
                             </div>
 

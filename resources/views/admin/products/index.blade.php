@@ -14,11 +14,11 @@
                     @if(Session::has('product_created'))
                         <div class="alert alert-success">{{Session('product_created')}}</div>
                     @endif
-                    @if(Session::has('brand_updated'))
-                        <div class="alert alert-info">{{Session('brand_updated')}}</div>
+                    @if(Session::has('product_updated'))
+                        <div class="alert alert-success">{{Session('product_updated')}}</div>
                     @endif
-                    @if(Session::has('brand_deleted'))
-                        <div class="alert alert-danger">{{Session('brand_deleted')}}</div>
+                    @if(Session::has('product_deleted'))
+                        <div class="alert alert-danger">{{Session('product_deleted')}}</div>
                     @endif
                     <div class="table-responsive">
                         <table class="table header-border table-hover table-custom spacing5">
@@ -46,7 +46,7 @@
                                            class="btn btn-outline-warning mb-2" title="ویرایش"><span
                                                 class="sr-only"></span> <i class="fa fa-edit"></i></a>
                                         <form class="inlineblock" method="post"
-                                              action="{{ route('products.destroy' , ['id' => $product->id])}}">
+                                              action="{{ route('products.destroy' , ['product' => $product])}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-outline-danger mb-2" title="حذف"><span

@@ -9,6 +9,7 @@ use App\Models\Admin\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use phpDocumentor\Reflection\Types\Object_;
 
 class ProductController extends Controller
 {
@@ -100,7 +101,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $brands = Brand::all();
+        $product = Product::with(['brand' , 'categories' , 'photos' , 'attributeValues'])->get()->first();
+        return view('admin.products.edit' , compact(['product' , 'brands']));
     }
 
     /**
@@ -112,7 +115,27 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product_update = Product::findOrFail($product->id);
+        $product_update->title = $request->title;
+        $product_update->sku = $this->generateSKU();
+        $product_update->slug = $request->slug;
+        $product_update->status = $request->status;
+        $product_update->price = $request->price;
+        $product_update->discount_price = $request->discount_price;
+        $product_update->description = $request->description;
+        $product_update->brand_id = $request->brand_id;
+        $product_update->user_id = 1;
+
+        $product_update->save();
+
+        $attributes = explode(',', $request->input('attributes')[0]);
+        $photos = explode(',', $request->input('photos_id')[0]);
+
+        $product_update->categories()->sync($request->categories);
+        $product_update->attributeValues()->sync($attributes);
+        $product_update->photos()->sync($photos);
+        Session::flash('product_updated', 'محصول مورد نظر با موفقیت ویرایش شد');
+        return redirect(route('products.index'));
     }
 
     /**
@@ -123,6 +146,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $selected_product = Product::findOrFail($product->id);
+        $selected_product->delete();
+
+        Session::flash('product_deleted', 'محصول مورد نظر با موفقیت حدف شد');
+        return redirect(route('products.index'));
+
     }
 }
