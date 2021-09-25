@@ -15,7 +15,7 @@ function skinChanger() {
         $(".choose-skin li").removeClass("active"), e.removeClass("theme-" + a), t.addClass("active");
         $(".choose-skin li.active").data("theme");
         e.addClass("theme-" + t.data("theme"));
-        $("#left-sidebar .navbar-brand .logo").attr("src", "../assets/images/icon.svg")
+        $("#left-sidebar .navbar-brand .logo").attr("src", "../assets/image/icon.svg")
     })
 }
 $(function() {
@@ -71,7 +71,7 @@ $(function() {
     }), 0 < $('[data-toggle="tooltip"]').length && $('[data-toggle="tooltip"]').tooltip(), 0 < $('[data-toggle="popover"]').length && $('[data-toggle="popover"]').popover(), $(window).on("load", function() {
         $("#main-content").height() < $("#left-sidebar").height() && $("#main-content").css("min-height", $("#left-sidebar").innerHeight() - $("footer").innerHeight())
     }), $(window).on("load resize", function() {
-        $(window).innerWidth() < 420 ? $(".navbar-brand logo.svg").attr("src", "../assets/images/icon.svg") : $(".navbar-brand icon-light.svg").attr("src", "../assets/images/logo.svg")
+        $(window).innerWidth() < 420 ? $(".navbar-brand logo.svg").attr("src", "../assets/image/icon.svg") : $(".navbar-brand icon-light.svg").attr("src", "../assets/image/logo.svg")
     }), $(".full-screen").on("click", function() {
         $(this).parents(".card").toggleClass("fullscreen")
     }), $(".progress .progress-bar").progressbar({

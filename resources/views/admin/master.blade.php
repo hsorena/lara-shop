@@ -34,7 +34,7 @@
 <!-- Page Loader -->
 <div class="page-loader-wrapper">
     <div class="loader">
-        <div class="m-t-30"><img src="{{ asset('assets/images/icon.svg') }}" width="40" height="40" alt="Brego"></div>
+        <div class="m-t-30"><img src="{{ asset('assets/image/icon.svg') }}" width="40" height="40" alt="Brego"></div>
         <p>لطفا صبر کنید...</p>
     </div>
 </div>
@@ -68,7 +68,7 @@
 
             <div class="navbar-left">
                 <div class="navbar-btn">
-                    <a href="#"><img src="{{asset('assets/images/icon.svg')}}" alt="Logo" class="img-fluid logo"></a>
+                    <a href="#"><img src="{{asset('assets/image/icon.svg')}}" alt="Logo" class="img-fluid logo"></a>
                     <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
                 </div>
                 <form id="navbar-search" class="navbar-form search-form">
@@ -540,7 +540,7 @@
 
     <div id="left-sidebar" class="sidebar">
         <div class="navbar-brand">
-            <a href="#"><img src="{{asset('assets/images/icon.svg')}}" alt="Logo" class="img-fluid logo"><span>پنل مدیریت</span></a>
+            <a href="#"><img src="{{asset('assets/image/icon.svg')}}" alt="Logo" class="img-fluid logo"><span>پنل مدیریت</span></a>
             <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"><i
                     class="lnr lnr-menu fa fa-chevron-circle-left"></i></button>
         </div>

@@ -36,6 +36,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::post('/photos/upload' , 'PhotoController@upload')->name('photos.upload');
 });
 
+Route::namespace('Frontend')->group(function (){
+    Route::resource('/' , 'HomeController');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
