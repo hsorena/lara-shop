@@ -69,6 +69,9 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->brand_id = $request->brand_id;
         $product->user_id = 1;
+        $product->meta_desc = $request->meta_desc;
+        $product->meta_title = $request->meta_title;
+        $product->meta_keywords = $request->meta_keywords;
 
         $product->save();
 

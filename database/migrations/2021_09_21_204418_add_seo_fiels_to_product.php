@@ -14,9 +14,9 @@ class AddSeoFielsToProduct extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('meat_title');
-            $table->string('meat_desc');
-            $table->string('meta_keywords');
+            $table->string('meta_title')->nullable();
+            $table->string('meta_desc')->nullable();
+            $table->string('meta_keywords')->nullable();
         });
     }
 
@@ -28,7 +28,7 @@ class AddSeoFielsToProduct extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn(['meat_title', 'meat_desc' , 'meta_keywords']);
+            $table->dropColumn(['meta_title', 'meta_desc' , 'meta_keywords']);
         });
     }
 }
