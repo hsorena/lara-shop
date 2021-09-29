@@ -21,11 +21,10 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">دسته والد :</span>
                             </div>
-                                <select class="custom-select" multiple name="parent_id" placeholder="دسته والد را انتخاب کنید...">
+                                <select class="custom-select" multiple  name="parent_id" placeholder="دسته والد را انتخاب کنید...">
                                     <option selected></option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }} </option>
-
                                         @if (count($category->childrenRecursive) > 0)
                                             @include('admin.partials.category' , ['categories' => $category->childrenRecursive , 'level' => 1])
                                         @endif
@@ -60,7 +59,7 @@
                                 <i class="fa fa-save"></i>
                                 دخیره
                             </button>
-                            <button type="reset" class="btn btn-outline-danger">
+                            <button type="reset" onclick="window.location='{{ route('categories.index') }}'" class="btn btn-outline-danger">
                                 <span class="sr-only"></span>
                                 <i class="fa fa-trash-o"></i>
                                 انصراف

@@ -126,7 +126,7 @@ class CategoryController extends Controller
 
     public function apiIndex()
     {
-        $categories = Category::with('sub_category')->where('parent_id' , null)->get();
+        $categories = Category::with('childrenRecursive')->where('parent_id', null)->get();
         $response = [
             'categories' => $categories
         ];

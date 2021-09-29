@@ -31,7 +31,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::with('sub_category')->where('parent_id', null)->get();
+        $categories = Category::with('sub_category')->get();
         $brands = Brand::all();
 
         return view('admin.products.create', compact(['categories', 'brands']));

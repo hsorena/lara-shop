@@ -102,7 +102,7 @@
                                     <i class="fa fa-save"></i>
                                     دخیره
                                 </button>
-                                <button type="reset" class="btn btn-outline-danger">
+                                <button onclick="window.location='{{ route('products.index') }}'" type="reset" class="btn btn-outline-danger">
                                     <span class="sr-only"></span>
                                     <i class="fa fa-trash-o"></i>
                                     انصراف

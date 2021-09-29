@@ -43,7 +43,10 @@
 <script>
 export default {
     name: "AttributeComponent",
-    props: ['brands' , 'product'],
+    props: [
+        'product',
+        'brands'
+    ],
     data() {
         return {
             categories: [],
@@ -87,8 +90,8 @@ export default {
                     id: current.id,
                     name: Array(level + 1).join(' -- ') + ' ' + current.name
                 })
-                if (current.sub_category && current.sub_category.length > 0) {
-                    this.getAllChildren(current.sub_category, level + 1)
+                if (current.children_recursive && current.children_recursive.length > 0) {
+                    this.getAllChildren(current.children_recursive, level + 1)
                 }
             }
 

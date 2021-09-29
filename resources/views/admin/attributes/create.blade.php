@@ -21,7 +21,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">نوع ویژگی :</span>
                             </div>
-                            <select name="type" class="selectpicker">
+                            <select name="type" class="custom-select">
                                 <option value="select">لیست تکی</option>
                                 <option value="multiple">لیست چندتایی</option>
                             </select>
@@ -33,7 +33,7 @@
                                 <i class="fa fa-save"></i>
                                 دخیره
                             </button>
-                            <button type="reset" class="btn btn-outline-danger">
+                            <button type="reset" onclick="window.location='{{ route('attributes.index') }}'" class="btn btn-outline-danger">
                                 <span class="sr-only"></span>
                                 <i class="fa fa-trash-o"></i>
                                 انصراف

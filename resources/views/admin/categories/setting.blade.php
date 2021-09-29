@@ -14,7 +14,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">ویژگی ها :</span>
                             </div>
-                                <select class="selectpicker" name="attributesGroup[]" multiple>
+                                <select class="custom-select" name="attributesGroup[]" multiple>
                                     <option></option>
                                     @foreach($attributes as $attribute)
                                         <option value="{{ $attribute->id }}" @if(in_array($attribute->id , $category->attributes->pluck('id')->toArray())) selected @endif>{{ $attribute->title }} </option>

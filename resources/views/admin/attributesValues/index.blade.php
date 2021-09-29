@@ -27,8 +27,8 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>عنوان</th>
                                 <th>ویژگی</th>
+                                <th>مقدار</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
