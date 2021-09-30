@@ -1,77 +1,109 @@
-@extends('layouts.app')
+@extends('frontend.master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+    <div id="container">
+        <div class="container" id="app">
+            <!-- Breadcrumb Start-->
+            <ul class="breadcrumb">
+                <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                <li><a href="login.html">حساب کاربری</a></li>
+                <li><a href="register.html">ثبت نام</a></li>
+            </ul>
+            <!-- Breadcrumb End-->
+            <div class="row">
+                <!--Middle Part Start-->
+                <div class="col-sm-9" id="content">
+                    <h1 class="title">ثبت نام حساب کاربری</h1>
+                    <p>اگر قبلا حساب کاربریتان را ایجاد کرد اید جهت ورود به <a href="login.html">صفحه لاگین</a> مراجعه کنید.</p>
+                    <form class="form-horizontal" action="{{ route('signup') }}" method="post">
                         @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        <fieldset id="account">
+                            <div class="form-group required">
+                                <label for="input-firstname" class="col-sm-2 control-label">نام</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="input-firstname" placeholder="نام" value="" name="firstname">
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="form-group required">
+                                <label for="input-lastname" class="col-sm-2 control-label">نام خانوادگی</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="input-lastname" placeholder="نام خانوادگی" value="" name="lastname">
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="form-group required">
+                                <label for="input-email" class="col-sm-2 control-label">آدرس ایمیل</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="input-email" placeholder="آدرس ایمیل" value="" name="email">
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <div class="form-group required">
+                                <label for="input-telephone" class="col-sm-2 control-label">شماره همراه</label>
+                                <div class="col-sm-10">
+                                    <input type="tel" class="form-control" id="input-telephone" placeholder="شماره همراه" value="" name="mobile">
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="input-telephone" class="col-sm-2 control-label">تلفن ثابت</label>
+                                <div class="col-sm-10">
+                                    <input type="tel" class="form-control" id="input-telephone" placeholder="تلفن ثابت" value="" name="telephone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-fax" class="col-sm-2 control-label">کد ملی</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="input-fax" placeholder="کد ملی" value="" name="national_code">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset id="address">
+                            <legend>آدرس</legend>
+                            <select-city-component></select-city-component>
+                            <div class="form-group required">
+                                <label for="input-address-1" class="col-sm-2 control-label">آدرس</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="input-address-1" placeholder="آدرس" value="" name="address">
+                                </div>
+                            </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
+                            <div class="form-group required">
+                                <label for="input-postcode" class="col-sm-2 control-label">کد پستی</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="input-postcode" placeholder="کد پستی" value="" name="postal_code">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-company" class="col-sm-2 control-label">شرکت</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="input-company" placeholder="شرکت" value="" name="company">
+                                </div>
+                            </div>
+
+
+                        </fieldset>
+                        <fieldset>
+                            <legend>رمز عبور شما</legend>
+                            <div class="form-group required">
+                                <label for="input-password" class="col-sm-2 control-label">رمز عبور</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="input-password" placeholder="رمز عبور" value="" name="password">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="buttons">
+                            <div class="pull-right">
+                                <input type="checkbox" value="1" name="agree">
+                                &nbsp;من <a class="agree" href="#"><b>سیاست حریم خصوصی</b> را خوانده ام و با آن موافق هستم</a> &nbsp;
+                                <input type="submit" class="btn btn-primary" value="ادامه">
                             </div>
                         </div>
                     </form>
                 </div>
+                <!--Middle Part End -->
+                <!--Right Part Start -->
+                <!--Right Part End -->
             </div>
         </div>
     </div>
-</div>
 @endsection
+

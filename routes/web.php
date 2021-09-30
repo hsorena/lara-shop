@@ -21,7 +21,7 @@ Route::prefix('api')->namespace('Admin')->group(function () {
     Route::get('/categories' , 'CategoryController@apiIndex');
     Route::post('/categories/attribute' , 'CategoryController@apiAttributeIndex');
 });
-
+Route::get('api/cities/{provinceId}' , 'Auth\RegisterController@getAllCities');
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::view('/' , 'admin.master');
@@ -35,11 +35,12 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::resource('/products' , 'ProductController');
     Route::post('/photos/upload' , 'PhotoController@upload')->name('photos.upload');
 });
-
-Route::namespace('Frontend')->group(function (){
-    Route::resource('/' , 'HomeController');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::namespace('Frontend')->group(function (){
+    Route::get('/' , 'HomeController@index')->name('home');
+    Route::get('/profile' , 'UserController@profile')->name('user.profile');
+});
+
+
+Route::get('/home', 'HomeController@index');
