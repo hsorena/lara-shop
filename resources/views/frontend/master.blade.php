@@ -117,15 +117,19 @@
                                 <li><a href="{{ route('register') }}">ثبت نام</a></li>
                             @else
                                 <li>
-                                        <a  href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">خروج</a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        @csrf
+                                    </form>
                                 </li>
 
-                                <li><a  href="{{ route('user.profile') }}"><p class="lowercase">سلام {{ Auth::user()->name }} , خوش آمدید </p></a></li>
+                                <li><a href="{{ route('user.profile') }}">
+                                        <p class="lowercase">سلام {{ Auth::user()->name }} , خوش آمدید </p>
+                                    </a>
+                                </li>
                             @endif
                         </ul>
                     </div>
@@ -150,61 +154,54 @@
                             <button type="button" data-toggle="dropdown" data-loading-text="بارگذاری ..."
                                     class="heading dropdown-toggle">
                                 <span class="cart-icon pull-left flip"></span>
-                                <span id="cart-total">2 آیتم - 132000 تومان</span></button>
+                                <span id="cart-total">{{ Session::has('cart') ? Session::get('cart')->totalQty : '0' }} آیتم - {{ Session::has('cart') ? Session::get('cart')->totalPrice : '0' }} تومان</span>
+                            </button>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <table class="table">
-                                        <tbody>
-                                        <tr>
-                                            <td class="text-center"><a href="product.html"><img class="img-thumbnail"
-                                                                                                title="کفش راحتی مردانه"
-                                                                                                alt="کفش راحتی مردانه"
-                                                                                                src="image/product/sony_vaio_1-50x75.jpg"></a>
-                                            </td>
-                                            <td class="text-left"><a href="product.html">کفش راحتی مردانه</a></td>
-                                            <td class="text-right">x 1</td>
-                                            <td class="text-right">32000 تومان</td>
-                                            <td class="text-center">
-                                                <button class="btn btn-danger btn-xs remove" title="حذف" onClick=""
-                                                        type="button"><i class="fa fa-times"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center"><a href="product.html"><img class="img-thumbnail"
-                                                                                                title="تبلت ایسر"
-                                                                                                alt="تبلت ایسر"
-                                                                                                src="image/product/samsung_tab_1-50x75.jpg"></a>
-                                            </td>
-                                            <td class="text-left"><a href="product.html">تبلت ایسر</a></td>
-                                            <td class="text-right">x 1</td>
-                                            <td class="text-right">98000 تومان</td>
-                                            <td class="text-center">
-                                                <button class="btn btn-danger btn-xs remove" title="حذف" onClick=""
-                                                        type="button"><i class="fa fa-times"></i></button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </li>
+                                @if(Session::has('cart') && Session::get('cart')->items)
+                                    <li>
+                                        <table class="table">
+                                            @foreach(Session::get('cart')->items as $product)
+                                                <tbody>
+                                                <tr>
+                                                    <td width="15%" class="text-center"><a href="product.html"><img
+                                                                class="img-thumbnail"
+                                                                title="{{ $product['item']->title }}"
+                                                                alt="{{ $product['item']->title }}"
+                                                                src="{{ asset('storage/photos/' . $product['item']->photos[0]->path) }}"></a>
+                                                    </td>
+                                                    <td class="text-left"><a href="product.html">{{ $product['item']->title }}</a>
+                                                    </td>
+                                                    <td class="text-right">{{ $product['qty'] }}</td>
+                                                    <td class="text-right">{{ $product['price'] }}</td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-danger btn-xs remove" title="حذف" onclick="event.preventDefault();
+                                                        document.getElementById('remove-cart-item_{{$product['item']->id}}').submit();" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </td>
+                                                    <form id="remove-cart-item_{{$product['item']->id}}" action="{{ route('cart.remove', ['id' => $product['item']->id]) }}" method="post" style="display: none;">
+                                                        @csrf
+                                                    </form>
+                                                </tr>
+                                                </tbody>
+                                            @endforeach
+                                        </table>
+                                    </li>
                                 <li>
                                     <div>
                                         <table class="table table-bordered">
                                             <tbody>
                                             <tr>
                                                 <td class="text-right"><strong>جمع کل</strong></td>
-                                                <td class="text-right">132000 تومان</td>
+                                                <td class="text-right">{{ Session::has('cart') ? Session::get('cart')->totalPurePrice : '0' }} تومان</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right"><strong>کسر هدیه</strong></td>
-                                                <td class="text-right">4000 تومان</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right"><strong>مالیات</strong></td>
-                                                <td class="text-right">11880 تومان</td>
+                                                <td class="text-right">{{ Session::has('cart') ? Session::get('cart')->totalDiscountPrice : '0' }} تومان</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right"><strong>قابل پرداخت</strong></td>
-                                                <td class="text-right">139880 تومان</td>
+                                                <td class="text-right">{{ Session::has('cart') ? Session::get('cart')->totalPrice : '0' }} تومان</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -214,6 +211,9 @@
                                                 تسویه حساب</a></p>
                                     </div>
                                 </li>
+                                @else
+                                <p class="text-center"><span class="text-large">سبد خرید شما خالی است</span> </p>
+                                @endif
                             </ul>
                         </div>
                     </div>

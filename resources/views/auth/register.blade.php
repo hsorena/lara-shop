@@ -14,8 +14,8 @@
                 <!--Middle Part Start-->
                 <div class="col-sm-9" id="content">
                     <h1 class="title">ثبت نام حساب کاربری</h1>
-                    <p>اگر قبلا حساب کاربریتان را ایجاد کرد اید جهت ورود به <a href="login.html">صفحه لاگین</a> مراجعه کنید.</p>
-                    <form class="form-horizontal" action="{{ route('signup') }}" method="post">
+                    <p>اگر قبلا حساب کاربریتان را ایجاد کرد اید جهت ورود به <a href="{{ route('login') }}">صفحه لاگین</a> مراجعه کنید.</p>
+                    <form class="form-horizontal" action="{{ route('register') }}" method="post">
                         @csrf
                         <fieldset id="account">
                             <div class="form-group required">

@@ -36,10 +36,14 @@
                                     <div class="image"><a href="#"><img src="{{ asset('storage/photos/' . $product->photos[0]->path) }}" alt="{{ $product->title }}" title="{{ $product->title }}" class="img-responsive" /></a></div>
                                     <div class="caption">
                                         <h4><a href="product.html">{{ $product->title }}</a></h4>
-                                        <p class="price"><span class="price-new">{{ $product->discount_price }} تومان</span> <span class="price-old">{{ $product->price }} تومان</span><span class="saving">%{{ round((($product->price - $product->discount_price) / $product->price) * 100)  }}</span></p>
+                                        @if($product->discount_price)
+                                            <p class="price"><span class="price-new">{{ $product->discount_price }} تومان</span> <span class="price-old">{{ $product->price }} تومان</span><span class="saving">%{{ round((($product->price - $product->discount_price) / $product->price) * 100)  }}</span></p>
+                                        @else
+                                            <p class="price"><span class="price-new">{{ $product->price }} تومان</span></p>
+                                        @endif
                                     </div>
                                     <div class="button-group">
-                                        <button class="btn-primary" type="button" onClick="cart.add('42');"><span>افزودن به سبد</span></button>
+                                        <a class="btn-primary" type="button" href="{{ route('cart.add' , ['id' => $product->id]) }}"><span>افزودن به سبد</span></a>
                                         <div class="add-to-links">
                                             <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی ها" onClick=""><i class="fa fa-heart"></i></button>
                                             <button type="button" data-toggle="tooltip" title="مقایسه این محصول" onClick=""><i class="fa fa-exchange"></i></button>

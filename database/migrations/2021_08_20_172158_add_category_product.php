@@ -15,10 +15,12 @@ class AddCategoryProduct extends Migration
     {
         Schema::create('category_product', function (Blueprint $table) {
             $table->unsignedInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('categories')
+                ->onDelete('cascade')->onUpdate('cascade');
 
             $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')
+                ->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

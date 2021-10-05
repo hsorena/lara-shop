@@ -40,6 +40,8 @@ Auth::routes();
 Route::namespace('Frontend')->group(function (){
     Route::get('/' , 'HomeController@index')->name('home');
     Route::get('/profile' , 'UserController@profile')->name('user.profile');
+    Route::get('/add-to-cart/{id}' , 'CartController@addToCart')->name('cart.add');
+    Route::post('/remove-item/{id}' , 'CartController@removeItem')->name('cart.remove');
 });
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Admin\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -15,8 +16,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Session::has('cart'))
+        {
+            $cart = Session::get('cart');
+        }else
+        {
+            $cart = null;
+        }
         $products = Product::with('photos')->get();
-        return view('frontend.home.index' , compact(['products']));
+        return view('frontend.home.index' , compact(['products' , 'cart']));
     }
 
     /**

@@ -102,10 +102,11 @@ class ProductController extends Controller
      * @param \App\Models\Admin\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
         $brands = Brand::all();
-        $product = Product::with(['brand' , 'categories' , 'photos' , 'attributeValues'])->get()->first();
+        $products = Product::with(['brand' , 'categories' , 'photos' , 'attributeValues'])->get();
+        $product = $products->where('id' , $id)->first();
         return view('admin.products.edit' , compact(['product' , 'brands']));
     }
 

@@ -42,7 +42,7 @@
                                     <td><img width="75px" src="{{ asset('/storage/photos/' . $product->photos[0]->path) }}">
                                     </td>
                                     <td>
-                                        <a href="{{ route('products.edit' , ['id' => $product->id])}}" type="button"
+                                        <a href="{{ route('products.edit' , ['id' => $product->id]) }}" type="button"
                                            class="btn btn-outline-warning mb-2" title="ویرایش"><span
                                                 class="sr-only"></span> <i class="fa fa-edit"></i></a>
                                         <form class="inlineblock" method="post"
