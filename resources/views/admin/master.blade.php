@@ -588,6 +588,13 @@
                             <li><a href="{{ route('brands.create') }}"><i class="fa fa-plus"></i>برند جدید</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#" class="has-arrow"><i class="fa fa-gift"></i><span>کد های تخفیف</span></a>
+                        <ul>
+                            <li><a href="{{ route('coupons.index') }}"><i class="fa fa-list"></i>لیست کد ها</a></li>
+                            <li><a href="{{ route('coupons.create') }}"><i class="fa fa-plus"></i>کد جدید</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>

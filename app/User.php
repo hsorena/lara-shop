@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Address;
 use App\Models\Admin\Photo;
 use App\Models\Admin\Product;
+use App\Models\Coupon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -53,5 +54,10 @@ class User extends Authenticatable
     public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class);
     }
 }

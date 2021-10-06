@@ -2,6 +2,9 @@
 
 @section('content')
     <div id="container">
+        @if(Session::has('coupon-guest'))
+            <div class="text-center text-large alert alert-warning"><h3>{{ Session('coupon-guest') }}</h3></div>
+        @endif
         <div class="container">
             <!-- Breadcrumb Start-->
             <ul class="breadcrumb">

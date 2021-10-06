@@ -10,6 +10,8 @@ class Cart
     public $totalPrice = 0;
     public $totalDiscountPrice = 0;
     public $totalPurePrice = 0;
+    public $coupon = null;
+    public $couponDiscount = null;
 
     public function __construct($oldCart)
     {
@@ -88,5 +90,14 @@ class Cart
                 }
             }
         }
+    }
+
+    public function addCoupon($coupon)
+    {
+        $couponData = ['price' => $coupon->price , 'coupon' => $coupon ];
+        $this->coupon = $couponData;
+        $this->totalPrice -= $coupon->price;
+        $this->couponDiscount += $coupon->price;
+        $this->totalDiscountPrice += $coupon->price;
     }
 }
