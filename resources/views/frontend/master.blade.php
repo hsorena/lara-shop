@@ -625,5 +625,7 @@
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 <!-- JS Part End-->
 
+@yield('zoom-js')
+
 </body>
 </html>

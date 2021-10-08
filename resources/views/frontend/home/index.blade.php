@@ -33,11 +33,14 @@
                         <div class="owl-carousel product_carousel_tab">
                             @foreach($products as $product)
                                 <div class="product-thumb clearfix">
-                                    <div class="image"><a href="#"><img src="{{ asset('storage/photos/' . $product->photos[0]->path) }}" alt="{{ $product->title }}" title="{{ $product->title }}" class="img-responsive" /></a></div>
+                                    <div class="image"><a href="{{ route('product.get' , ['slug' => $product->slug]) }}"><img src="{{ asset('storage/photos/' . $product->photos[0]->path) }}" alt="{{ $product->title }}" title="{{ $product->title }}" class="img-responsive" /></a></div>
                                     <div class="caption">
                                         <h4><a href="product.html">{{ $product->title }}</a></h4>
                                         @if($product->discount_price)
-                                            <p class="price"><span class="price-new">{{ $product->discount_price }} تومان</span> <span class="price-old">{{ $product->price }} تومان</span><span class="saving">%{{ round((($product->price - $product->discount_price) / $product->price) * 100)  }}</span></p>
+                                            <p class="price"><span class="price-new">{{ $product->discount_price }} تومان</span>
+                                                <span class="price-old">{{ $product->price }} تومان</span>
+                                                <span class="saving">%{{ round((($product->price - $product->discount_price) / $product->price) * 100)  }}</span>
+                                            </p>
                                         @else
                                             <p class="price"><span class="price-new">{{ $product->price }} تومان</span></p>
                                         @endif

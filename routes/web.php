@@ -45,6 +45,7 @@ Route::namespace('Frontend')->group(function (){
     Route::post('/remove-item/{id}' , 'CartController@removeItem')->name('cart.remove');
     Route::get('/cart' , 'CartController@show')->name('cart.show');
     Route::post('/coupon' , 'CouponController@addCoupon')->name('coupon.add');
+    Route::get('/products/{slug}' , 'ProductController@getProduct')->name('product.get');
 });
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Helper;
 use App\Models\Admin\Product;
 use App\Models\Cart;
 use Illuminate\Http\Request;

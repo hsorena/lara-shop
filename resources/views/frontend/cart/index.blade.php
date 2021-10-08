@@ -34,12 +34,19 @@
                             <tbody>
                             @foreach(Session::get('cart')->items as $product)
                                 <tr>
-                                    <td class="text-center"><a href="product.html"><img width="100px"
-                                                                                        src="{{ asset('storage/photos/'.$product['item']->photos[0]->path)  }}"
-                                                                                        alt=""
-                                                                                        title=""
-                                                                                        class="img-thumbnail"/></a></td>
-                                    <td class="text-left"><a href="product.html">{{ $product['item']->title }}</a><br/>
+                                    <td class="text-center">
+                                        <a href="{{ route('product.get' , ['slug' => $product['item']->slug]) }}">
+                                            <img width="100px"
+                                                 src="{{ asset('storage/photos/'.$product['item']->photos[0]->path)  }}"
+                                                 alt=""
+                                                 title=""
+                                                 class="img-thumbnail"/>
+                                        </a>
+                                    </td>
+                                    <td class="text-left">
+                                        <a href="{{ route('product.get' , ['slug' => $product['item']->slug]) }}">
+                                            {{ $product['item']->title }}
+                                        </a><br/>
                                     </td>
                                     <td class="text-left">{{ $product['item']->sku }}</td>
                                     <td class="text-left">

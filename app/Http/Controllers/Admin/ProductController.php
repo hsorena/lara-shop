@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Helper;
 use App\Models\Admin\Brand;
 use App\Models\Admin\Category;
 use App\Models\Admin\Photo;
@@ -62,7 +63,7 @@ class ProductController extends Controller
         $product = new Product();
         $product->title = $request->title;
         $product->sku = $this->generateSKU();
-        $product->slug = $request->slug;
+        $product->slug = Helper::make_slug($request->slug);
         $product->status = $request->status;
         $product->price = $request->price;
         $product->discount_price = $request->discount_price;
