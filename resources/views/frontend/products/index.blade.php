@@ -234,7 +234,7 @@
                                 </div>
                                 <div class="caption">
                                     <h4>
-                                        <a href="product.html">{{ $relatedProduct->title }}</a>
+                                        <a href="{{ route('product.get' , ['slug' => $relatedProduct->slug]) }}">{{ $relatedProduct->title }}</a>
                                     </h4>
                                     @if($relatedProduct->discount_price)
                                         <p class="price">
@@ -386,5 +386,10 @@
             $.swipebox(ez.getGalleryList());
             return false;
         });
+
+        window.onload = function () {
+            var loadTime = window.performance.timing.domContentLoadedEventEnd-window.performance.timing.navigationStart;
+            console.log('Page load time is '+ loadTime);
+        }
     </script>
 @endsection

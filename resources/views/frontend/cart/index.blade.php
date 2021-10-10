@@ -25,7 +25,7 @@
                             <tr>
                                 <td class="text-center" width="25%">تصویر</td>
                                 <td class="text-left">نام محصول</td>
-                                <td class="text-left">کد محصول</td>
+                                <td class="text-center">کد محصول</td>
                                 <td class="text-left">تعداد</td>
                                 <td class="text-right">قیمت واحد</td>
                                 <td class="text-right">کل</td>
@@ -48,7 +48,7 @@
                                             {{ $product['item']->title }}
                                         </a><br/>
                                     </td>
-                                    <td class="text-left">{{ $product['item']->sku }}</td>
+                                    <td class="text-center">{{ $product['item']->sku }}</td>
                                     <td class="text-left">
                                         <div class="input-group btn-block quantity">
                                             <p class="" style="margin-top: 10px;font-size: 20px;">

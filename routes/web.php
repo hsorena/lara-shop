@@ -46,6 +46,7 @@ Route::namespace('Frontend')->group(function (){
     Route::get('/cart' , 'CartController@show')->name('cart.show');
     Route::post('/coupon' , 'CouponController@addCoupon')->name('coupon.add');
     Route::get('/products/{slug}' , 'ProductController@getProduct')->name('product.get');
+    Route::get('/category/{id}/{page?}' , 'ProductController@getProductByCategory')->name('category.index');
 });
 
 

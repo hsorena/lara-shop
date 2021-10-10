@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Admin\Category;
 use App\Models\Admin\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,5 +16,14 @@ class ProductController extends Controller
            $q->whereIn('id' , $product->categories);
         })->get();
         return view('frontend.products.index' , compact(['product' , 'relatedProducts']));
+    }
+
+    public function getProductByCategory($id , $page = 2)
+    {
+        $category = Category::whereId($id)->first();
+        $products = Product::with('photos')->whereHas('categories' , function ($q) use($category){
+            $q->where('id' , $category->id);
+        })->paginate($page);
+        return view('frontend.categories.index' , compact(['category' , 'products']));
     }
 }
