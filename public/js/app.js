@@ -2443,18 +2443,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductComponent",
   props: ['category'],
   data: function data() {
     return {
-      products: []
+      products: [],
+      sort: 'DESC',
+      page: 1,
+      paginate: 2
     };
   },
   mounted: function mounted() {
@@ -2472,9 +2469,34 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.products = [];
-      axios.get('/api/products/' + this.category.id + '?page=' + pageNum).then(function (res) {
-        _this2.products = res.data.products;
-        console.log(_this2.products);
+
+      if (this.sort == 'ASC' || this.sort == 'DESC') {
+        this.getSortedProducts();
+      } else {
+        axios.get('/api/products/' + this.category.id + '?page=' + pageNum).then(function (res) {
+          _this2.products = res.data.products;
+          console.log(_this2.products);
+        })["catch"](function (err) {});
+      }
+    },
+    getSortedProducts: function getSortedProducts() {
+      var _this3 = this;
+
+      this.products = [];
+      axios.get('/api/products/' + this.category.id + '/' + this.sort + '/' + this.paginate + '?page=' + this.page).then(function (res) {
+        _this3.products = res.data.products; // this.clickCallback(this.page)
+
+        console.log(_this3.products);
+      })["catch"](function (err) {});
+    },
+    getPaginatedProducts: function getPaginatedProducts() {
+      var _this4 = this;
+
+      this.products = [];
+      axios.get('/api/products/' + this.category.id + '/' + this.sort + '/' + this.paginate + '?page=' + this.page).then(function (res) {
+        _this4.products = res.data.products; // this.clickCallback(this.page)
+
+        console.log(_this4.products);
       })["catch"](function (err) {});
     }
   }
@@ -38456,7 +38478,109 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", [
-        _vm._m(1),
+        _c("div", { staticClass: "product-filter" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3 col-sm-3 text-right" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.sort,
+                      expression: "sort"
+                    }
+                  ],
+                  staticClass: "form-control col-sm-3",
+                  attrs: { id: "input-sort" },
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.sort = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      _vm.getSortedProducts
+                    ]
+                  }
+                },
+                [
+                  _c("option", { attrs: { selected: "selected", value: "" } }, [
+                    _vm._v("پیشفرض")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "ASC" } }, [
+                    _vm._v("قیمت (کم به زیاد)")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "DESC" } }, [
+                    _vm._v("قیمت (زیاد به کم)")
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(3),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-2 text-right" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.paginate,
+                      expression: "paginate"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { id: "input-limit" },
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.paginate = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      _vm.getPaginatedProducts
+                    ]
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "5" } }, [_vm._v("5")])
+                ]
+              )
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
@@ -38549,7 +38673,7 @@ var render = function() {
                         [_c("span", [_vm._v("افزودن به سبد")])]
                       ),
                       _vm._v(" "),
-                      _vm._m(2, true)
+                      _vm._m(4, true)
                     ])
                   ])
                 ])
@@ -38560,27 +38684,36 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          { staticClass: "col-sm-12 text-center" },
-          [
-            _c("paginate", {
-              attrs: {
-                "click-handler": _vm.clickCallback,
-                "container-class": "pagination",
-                "margin-pages": 3,
-                "next-text": "بعدی",
-                "page-class": "page-item",
-                "page-count": this.products.lastPage,
-                "page-range": 3,
-                "prev-text": "قبلی"
-              }
-            })
-          ],
-          1
-        )
-      ])
+      _vm.products.last_page
+        ? _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-sm-12 text-center" },
+              [
+                _c("paginate", {
+                  attrs: {
+                    "click-handler": _vm.clickCallback,
+                    "container-class": "pagination",
+                    "margin-pages": 3,
+                    "next-text": "بعدی",
+                    "page-class": "page-item",
+                    "page-count": this.products.last_page,
+                    "page-range": 3,
+                    "prev-text": "قبلی"
+                  },
+                  model: {
+                    value: _vm.page,
+                    callback: function($$v) {
+                      _vm.page = $$v
+                    },
+                    expression: "page"
+                  }
+                })
+              ],
+              1
+            )
+          ])
+        : _vm._e()
     ])
   ])
 }
@@ -39533,121 +39666,66 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "product-filter" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-4 col-sm-5" }, [
-          _c("div", { staticClass: "btn-group" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-default",
-                attrs: {
-                  id: "list-view",
-                  "data-original-title": "List",
-                  "data-toggle": "tooltip",
-                  title: "",
-                  type: "button"
-                }
-              },
-              [_c("i", { staticClass: "fa fa-th-list" })]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-default selected",
-                attrs: {
-                  id: "grid-view",
-                  "data-original-title": "Grid",
-                  "data-toggle": "tooltip",
-                  title: "",
-                  type: "button"
-                }
-              },
-              [_c("i", { staticClass: "fa fa-th" })]
-            )
-          ]),
-          _vm._v(" "),
-          _c("a", { attrs: { id: "compare-total", href: "compare.html" } }, [
-            _vm._v("محصولات مقایسه (0)")
-          ])
-        ]),
+    return _c("div", { staticClass: "col-md-4 col-sm-5" }, [
+      _c("div", { staticClass: "btn-group" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-default",
+            attrs: {
+              id: "list-view",
+              "data-original-title": "List",
+              "data-toggle": "tooltip",
+              title: "",
+              type: "button"
+            }
+          },
+          [_c("i", { staticClass: "fa fa-th-list" })]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-2 text-right" }, [
-          _c(
-            "label",
-            { staticClass: "control-label", attrs: { for: "input-sort" } },
-            [_vm._v("مرتب سازی :")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3 col-sm-3 text-right" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control col-sm-3",
-              attrs: { id: "input-sort" }
-            },
-            [
-              _c("option", { attrs: { selected: "selected", value: "" } }, [
-                _vm._v("پیشفرض")
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [_vm._v("نام (الف - ی)")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [_vm._v("نام (ی - الف)")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [
-                _vm._v("قیمت (کم به زیاد)")
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [
-                _vm._v("قیمت (زیاد به کم)")
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [
-                _vm._v("امتیاز (بیشترین)")
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [
-                _vm._v("امتیاز (کمترین)")
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [_vm._v("مدل (A - Z)")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [_vm._v("مدل (Z - A)")])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-1 text-right" }, [
-          _c(
-            "label",
-            { staticClass: "control-label", attrs: { for: "input-limit" } },
-            [_vm._v("نمایش :")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-2 text-right" }, [
-          _c(
-            "select",
-            { staticClass: "form-control", attrs: { id: "input-limit" } },
-            [
-              _c("option", { attrs: { selected: "selected", value: "" } }, [
-                _vm._v("20")
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [_vm._v("25")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [_vm._v("50")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [_vm._v("75")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [_vm._v("100")])
-            ]
-          )
-        ])
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-default selected",
+            attrs: {
+              id: "grid-view",
+              "data-original-title": "Grid",
+              "data-toggle": "tooltip",
+              title: "",
+              type: "button"
+            }
+          },
+          [_c("i", { staticClass: "fa fa-th" })]
+        )
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { id: "compare-total", href: "compare.html" } }, [
+        _vm._v("محصولات مقایسه (0)")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-2 text-right" }, [
+      _c(
+        "label",
+        { staticClass: "control-label", attrs: { for: "input-sort" } },
+        [_vm._v("مرتب سازی :")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-1 text-right" }, [
+      _c(
+        "label",
+        { staticClass: "control-label", attrs: { for: "input-limit" } },
+        [_vm._v("نمایش :")]
+      )
     ])
   },
   function() {

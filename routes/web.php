@@ -21,7 +21,8 @@ Route::prefix('api')->group(function () {
     Route::get('/categories' , 'Admin\CategoryController@apiIndex');
     Route::post('/categories/attribute' , 'Admin\CategoryController@apiAttributeIndex');
     Route::get('api/cities/{provinceId}' , 'Auth\RegisterController@getAllCities');
-    Route::get('/products/{id}' , 'Frontend\ProductController@apiProducts');
+    Route::get('/products/{id}' , 'Frontend\ProductController@apiGetProducts');
+    Route::get('/products/{id}/{sort}/{paginate}' , 'Frontend\ProductController@apiGetSortedProducts');
 });
 
 Route::prefix('admin')->namespace('Admin')->group(function () {

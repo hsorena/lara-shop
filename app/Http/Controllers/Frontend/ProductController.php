@@ -27,11 +27,23 @@ class ProductController extends Controller
         return view('frontend.categories.index' , compact(['category' , 'products']));
     }
 
-    public function apiProducts($id)
+    public function apiGetProducts($id)
     {
         $products = Product::with('photos')->whereHas('categories' , function ($q) use($id){
             $q->where('id' , $id);
         })->paginate(2);
+
+        $response = [
+            'products' => $products
+        ];
+        return response()->json($response , 200);
+    }
+
+    public function apiGetSortedProducts($id ,$sort,$paginate)
+    {
+        $products = Product::with('photos')->whereHas('categories' , function ($q) use($id){
+            $q->where('id' , $id);
+        })->orderBy('price' , $sort)->paginate($paginate);
 
         $response = [
             'products' => $products

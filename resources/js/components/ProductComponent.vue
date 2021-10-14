@@ -301,28 +301,21 @@
                             <label class="control-label" for="input-sort">مرتب سازی :</label>
                         </div>
                         <div class="col-md-3 col-sm-3 text-right">
-                            <select id="input-sort" class="form-control col-sm-3">
+                            <select id="input-sort" class="form-control col-sm-3" v-model="sort" @change="getSortedProducts">
                                 <option selected="selected" value="">پیشفرض</option>
-                                <option value="">نام (الف - ی)</option>
-                                <option value="">نام (ی - الف)</option>
-                                <option value="">قیمت (کم به زیاد)</option>
-                                <option value="">قیمت (زیاد به کم)</option>
-                                <option value="">امتیاز (بیشترین)</option>
-                                <option value="">امتیاز (کمترین)</option>
-                                <option value="">مدل (A - Z)</option>
-                                <option value="">مدل (Z - A)</option>
+                                <option value="ASC">قیمت (کم به زیاد)</option>
+                                <option value="DESC">قیمت (زیاد به کم)</option>
                             </select>
                         </div>
                         <div class="col-sm-1 text-right">
                             <label class="control-label" for="input-limit">نمایش :</label>
                         </div>
                         <div class="col-sm-2 text-right">
-                            <select id="input-limit" class="form-control">
-                                <option selected="selected" value="">20</option>
-                                <option value="">25</option>
-                                <option value="">50</option>
-                                <option value="">75</option>
-                                <option value="">100</option>
+                            <select id="input-limit" class="form-control" v-model="paginate" @change="getPaginatedProducts">
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
                             </select>
                         </div>
                     </div>
@@ -372,15 +365,16 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="products.last_page">
                 <div class="col-sm-12 text-center">
                     <paginate
+                        v-model="page"
                         :click-handler="clickCallback"
                         :container-class="'pagination'"
                         :margin-pages="3"
                         :next-text="'بعدی'"
                         :page-class="'page-item'"
-                        :page-count="this.products.lastPage"
+                        :page-count="this.products.last_page"
                         :page-range="3"
                         :prev-text="'قبلی'">
                     </paginate>
@@ -397,7 +391,10 @@ export default {
     props: ['category'],
     data() {
         return {
-            products : []
+            products : [],
+            sort : 'DESC',
+            page : 1,
+            paginate : 2
         }
     },
     mounted() {
@@ -411,8 +408,32 @@ export default {
     methods: {
         clickCallback(pageNum) {
             this.products = []
-            axios.get('/api/products/' + this.category.id + '?page='+ pageNum).then(res => {
+            if (this.sort == 'ASC' || this.sort == 'DESC')
+            {
+                this.getSortedProducts()
+            }else{
+                axios.get('/api/products/' + this.category.id + '?page='+ pageNum).then(res => {
+                    this.products = res.data.products
+                    console.log(this.products)
+                }).catch(err => {
+                })
+            }
+
+        },
+        getSortedProducts(){
+            this.products = []
+            axios.get('/api/products/' + this.category.id + '/' + this.sort + '/' + this.paginate + '?page='+ this.page).then(res => {
                 this.products = res.data.products
+                // this.clickCallback(this.page)
+                console.log(this.products)
+            }).catch(err => {
+            })
+        },
+        getPaginatedProducts(){
+            this.products = []
+            axios.get('/api/products/' + this.category.id + '/' + this.sort + '/' + this.paginate + '?page='+ this.page).then(res => {
+                this.products = res.data.products
+                // this.clickCallback(this.page)
                 console.log(this.products)
             }).catch(err => {
             })
