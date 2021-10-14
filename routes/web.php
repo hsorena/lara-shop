@@ -17,11 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::prefix('api')->namespace('Admin')->group(function () {
-    Route::get('/categories' , 'CategoryController@apiIndex');
-    Route::post('/categories/attribute' , 'CategoryController@apiAttributeIndex');
+Route::prefix('api')->group(function () {
+    Route::get('/categories' , 'Admin\CategoryController@apiIndex');
+    Route::post('/categories/attribute' , 'Admin\CategoryController@apiAttributeIndex');
+    Route::get('api/cities/{provinceId}' , 'Auth\RegisterController@getAllCities');
+    Route::get('/products/{id}' , 'Frontend\ProductController@apiProducts');
 });
-Route::get('api/cities/{provinceId}' , 'Auth\RegisterController@getAllCities');
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::view('/' , 'admin.master');
@@ -46,7 +47,7 @@ Route::namespace('Frontend')->group(function (){
     Route::get('/cart' , 'CartController@show')->name('cart.show');
     Route::post('/coupon' , 'CouponController@addCoupon')->name('coupon.add');
     Route::get('/products/{slug}' , 'ProductController@getProduct')->name('product.get');
-    Route::get('/category/{id}/{page?}' , 'ProductController@getProductByCategory')->name('category.index');
+    Route::get('/category/{id}' , 'ProductController@getProductByCategory')->name('category.index');
 });
 
 

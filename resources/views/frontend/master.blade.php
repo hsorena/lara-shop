@@ -237,7 +237,7 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav">
                         <li><a class="home_link" title="خانه" href="{{ route('home') }}">خانه</a></li>
-                        <li class="dropdown"><a href="#">پوشاک</a>
+                        <li class="dropdown"><a href="{{ route('category.index' , ['id' => 1]) }}">پوشاک</a>
                             <div class="dropdown-menu">
                                 <ul>
                                     <li><a href="category.html">آقایان <span>&rsaquo;</span></a>
@@ -624,7 +624,7 @@
 <script type="text/javascript" src="{{ asset('frontend/js/custom.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 <!-- JS Part End-->
-
+@yield('vue')
 @yield('zoom-js')
 
 </body>
