@@ -23,6 +23,8 @@ Route::prefix('api')->group(function () {
     Route::get('api/cities/{provinceId}' , 'Auth\RegisterController@getAllCities');
     Route::get('/products/{id}' , 'Frontend\ProductController@apiGetProducts');
     Route::get('/products/{id}/{sort}/{paginate}' , 'Frontend\ProductController@apiGetSortedProducts');
+    Route::get('/products/attributes/{id}' , 'Frontend\ProductController@apiGetCategoryAttribute');
+    Route::get('/filter-products/{id}/{sort}/{paginate}/{attributes}' , 'Frontend\ProductController@apiGetFilterProducts');
 });
 
 Route::prefix('admin')->namespace('Admin')->group(function () {

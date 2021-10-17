@@ -2,7 +2,25 @@
     <div class="row">
         <!--Left Part Start -->
         <aside id="column-left" class="col-sm-3 hidden-xs">
-            <h3 class="subtitle">دسته ها</h3>
+            <h3 class="subtitle">فیلتر کردن محصولات</h3>
+            <div class="box-category">
+                <ul id="cat_accordion">
+                    <li>
+                        <div v-for="(attribute , index) in attributesGroup" class="input-group">
+                            <span> {{ attribute.title }}:</span>
+                            <select class="form-control" name="" id="" @change="addFilter($event , index)">
+                                <option>ویژگی را انتخاب کنید...</option>
+                                <option v-for="attribute_value in attribute.attribute_values" :value="attribute_value.id">{{ attribute_value.title }}</option>
+                            </select>
+                        </div>
+
+                    </li>
+                    <br>
+                        <button @click="getFilterProducts" class="btn btn-warning pull-right">فیلتر</button>
+                </ul>
+            </div>
+            <br>
+            <h3 class="subtitle">دسته بندی ها</h3>
             <div class="box-category">
                 <ul id="cat_accordion">
                     <li><a href="category.html">مد و زیبایی</a> <span class="down"></span>
@@ -394,13 +412,24 @@ export default {
             products : [],
             sort : 'DESC',
             page : 1,
-            paginate : 2
+            paginate : 2,
+            attributesGroup : [],
+            selected_attributes : [],
+            computedAttributes : [],
+            attributes : [],
+            flag : false
+
         }
     },
     mounted() {
         axios.get('/api/products/' + this.category.id).then(res => {
             this.products = res.data.products
-            console.log(this.products)
+        }).catch(err => {
+            console.log(err)
+        })
+
+        axios.get('/api/products/attributes/' + this.category.id).then(res => {
+            this.attributesGroup = res.data.attributesGroup
         }).catch(err => {
             console.log(err)
         })
@@ -408,13 +437,15 @@ export default {
     methods: {
         clickCallback(pageNum) {
             this.products = []
-            if (this.sort == 'ASC' || this.sort == 'DESC')
+            if (this.flag){
+                this.getFilterProducts()
+            }
+            else if (this.sort == 'ASC' || this.sort == 'DESC')
             {
                 this.getSortedProducts()
             }else{
                 axios.get('/api/products/' + this.category.id + '?page='+ pageNum).then(res => {
                     this.products = res.data.products
-                    console.log(this.products)
                 }).catch(err => {
                 })
             }
@@ -425,7 +456,6 @@ export default {
             axios.get('/api/products/' + this.category.id + '/' + this.sort + '/' + this.paginate + '?page='+ this.page).then(res => {
                 this.products = res.data.products
                 // this.clickCallback(this.page)
-                console.log(this.products)
             }).catch(err => {
             })
         },
@@ -434,8 +464,37 @@ export default {
             axios.get('/api/products/' + this.category.id + '/' + this.sort + '/' + this.paginate + '?page='+ this.page).then(res => {
                 this.products = res.data.products
                 // this.clickCallback(this.page)
-                console.log(this.products)
             }).catch(err => {
+            })
+        },
+        addFilter(event, index) {
+
+            for (let i = 0; i < this.selected_attributes.length; i++) {
+
+                let current = this.selected_attributes[i];
+                if (current.index == index) {
+                    this.selected_attributes.splice(i, 1)
+                }
+            }
+            this.selected_attributes.push({
+                'index': index,
+                'value': event.target.value
+            })
+            this.computedAttributes = []
+            for (let i = 0 ; i < this.selected_attributes.length; i++)
+            {
+                this.computedAttributes.push(this.selected_attributes[i].value)
+            }
+        },
+        getFilterProducts(){
+            this.products = []
+            this.flag = true
+            let attributes = JSON.stringify(this.computedAttributes)
+            console.log(attributes)
+            axios.get('/api/filter-products/' + this.category.id + '/' + this.sort + '/' + this.paginate + '/' + attributes + '?page=' + this.page ).then(res => {
+                this.products = res.data.products
+            }).catch(err => {
+
             })
         }
     }
